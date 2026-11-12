@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DEADCODE — Every project deserves a second life</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--bg:#090909;--bg2:#141414;--card:#191919;--ac:#FF8C32;--tx:#F2F2F2;--mu:#888;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 "JetBrains Mono",ui-monospace,monospace;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+h1,h2,h3,.logo{font-family:Cinzel,Georgia,serif;letter-spacing:.04em;margin:0}
+a{color:var(--ac)}
+header{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 5vw;border-bottom:1px solid #222;background:#090909cc;position:sticky;top:0;z-index:20;backdrop-filter:blur(8px)}
+.logo{font-size:22px;font-weight:700;color:var(--tx);text-decoration:none;text-shadow:0 0 18px #ff8c3288}.logo b{color:var(--ac)}
+nav{display:flex;gap:6px;flex-wrap:wrap}nav a{color:var(--mu);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;transition:.2s}
+nav a:hover,nav a.on{color:var(--ac);background:#ff8c3216}
+main{max-width:1180px;margin:0 auto;padding:0 5vw 60px;position:relative}
+.hero{text-align:center;padding:90px 0 50px;position:relative}
+.hero::before,.hero::after{content:"";position:absolute;left:50%;top:40%;width:640px;max-width:120vw;height:320px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,#ff8c3222,transparent);filter:blur(30px);animation:fog 9s ease-in-out infinite alternate;z-index:-1}
+.hero::after{top:70%;animation-delay:-4s;background:radial-gradient(closest-side,#ffffff0d,transparent)}
+@keyframes fog{to{transform:translate(-44%,-54%) scale(1.15)}}
+.hero h1{font-size:clamp(34px,8vw,84px);line-height:1.05;text-shadow:0 0 40px #ff8c3255}
+.hero h1 em{color:var(--ac);font-style:normal}
+.hero p{color:var(--mu);max-width:620px;margin:22px auto 30px}
+.btn{font:600 13px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ac);background:var(--ac);color:#090909;padding:12px 22px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+.btn:hover{box-shadow:0 0 26px #ff8c32aa;transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ac)}.btn.ghost:hover{background:#ff8c3218}
+.stats{display:flex;justify-content:center;gap:clamp(18px,6vw,70px);margin:44px 0 10px;flex-wrap:wrap}
+.stats div{text-align:center;color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.1em}.stats b{display:block;font:700 38px Cinzel,serif;color:var(--tx)}
+h2.sec{font-size:26px;margin:56px 0 24px;display:flex;align-items:center;gap:14px}h2.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#ff8c3266,transparent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:34px 24px;align-items:end}
+.tomb{position:relative;padding:58px 20px 70px;text-align:center;cursor:pointer;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E"),linear-gradient(165deg,#333,#1f1f1f 55%,#151515);border-radius:999px 999px 8px 8px;box-shadow:inset 0 2px 0 #ffffff14,inset 0 -40px 50px #000a,inset 0 0 0 1px #0008,0 20px 30px #000c;transition:transform .3s,box-shadow .3s;outline:none}
+.tomb.v1{border-radius:26px 26px 8px 8px;padding-top:44px}.tomb.v2{border-radius:130px 130px 8px 8px / 90px 90px 8px 8px;transform:rotate(-1deg)}
+.tomb.v1::before{content:"✝";position:absolute;top:8px;left:50%;transform:translateX(-50%);color:#ffffff1c;font-size:22px}
+.tomb:hover,.tomb:focus-visible{transform:translateY(-8px);box-shadow:inset 0 2px 0 #ffffff1c,inset 0 -40px 50px #000a,0 14px 50px #ff8c3238,0 0 0 1px #ff8c3255}
+.tomb::after{content:"";position:absolute;left:-12px;right:-12px;bottom:-14px;height:26px;background:radial-gradient(ellipse at top,#1c1c1c,#0b0b0b);border-radius:50%;z-index:-1}
+.tomb .rip{font:11px Cinzel,serif;letter-spacing:.3em;color:#777}
+.tomb h3{font-size:20px;margin:6px 0;color:#cfcfcf;text-shadow:0 1px 0 #000,0 -1px 0 #ffffff22}
+.ep{color:#8b8b8b;font-size:12px;margin:0 0 10px;font-style:italic}.by{font-size:12px;color:var(--mu)}
+.tags{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:10px 0}.tags span{font-size:10px;padding:2px 7px;background:#0006;border:1px solid #333;border-radius:20px;color:#aaa}
+.dates{font-size:11px;color:#666;margin-bottom:10px}
+.st{display:inline-block;font-size:10px;font-weight:600;padding:2px 9px;border-radius:4px;letter-spacing:.1em;margin-bottom:12px;border:1px solid}
+.s-FREE{color:#7ee787}.s-FORSALE{color:#ffd166}.s-OPENSOURCE{color:#4cc9f0}.s-PARTNERSHIP{color:#c58bff}
+.tomb .btn{display:block;margin:0 auto;padding:9px 18px}
+.demo{position:absolute;top:14px;right:18px;font-size:9px;color:#555;letter-spacing:.1em}
+.shake{animation:shake .12s linear 6}@keyframes shake{0%,100%{translate:0}25%{translate:-3px 1px}75%{translate:3px -1px}}
+.rcard{background:var(--card);border:1px solid #2a2a2a;border-radius:10px;padding:20px;box-shadow:0 0 30px #ff8c3210}
+.rcard h3{font-size:18px}.rcard s{color:var(--mu)}.rcard p{color:#bbb;margin:8px 0}
+.panel{background:var(--card);border:1px solid #262626;border-radius:10px;padding:20px;margin-bottom:18px}
+.panel h3{font-size:16px;color:var(--ac);margin-bottom:8px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:28px}
+input,select,textarea{width:100%;background:var(--bg2);color:var(--tx);border:1px solid #2b2b2b;border-radius:6px;padding:10px 12px;font:inherit;font-size:14px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px #ff8c3222}
+label{display:block;font-size:12px;color:var(--mu);margin:14px 0 5px;text-transform:uppercase;letter-spacing:.08em}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.shot{aspect-ratio:16/10;background:repeating-linear-gradient(45deg,#161616,#161616 10px,#1b1b1b 10px,#1b1b1b 20px);border:1px dashed #333;border-radius:8px;display:grid;place-items:center;color:#555;font-size:12px;overflow:hidden}.shot img{width:100%;height:100%;object-fit:cover}
+.hide{display:none}.pill{display:inline-block;font-size:11px;padding:2px 8px;border:1px solid #333;border-radius:20px;color:#aaa;margin:0 4px 4px 0}
+ul.l{margin:0;padding-left:18px;color:#ccc}.empty{color:var(--mu);text-align:center;padding:50px 0}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:100;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#222;border:1px solid var(--ac);padding:10px 18px;border-radius:8px;z-index:120;font-size:13px}
+footer{text-align:center;color:#555;font-size:12px;padding:30px 5vw}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+mark{background:#ff8c3233;color:var(--ac);padding:0 4px;border-radius:3px}
+.warn{border:1px solid #ff8c3266;background:#ff8c3212;color:#ffc58f;padding:10px 14px;border-radius:8px;font-size:13px;margin:10px 0}
+.warn.top{margin:0;border-radius:0;text-align:center;border-width:0 0 1px}
+.chk{display:flex;gap:10px;align-items:flex-start;text-transform:none;letter-spacing:0;font-size:13px;color:#ccc;margin:10px 0}
+.chk input{width:auto;margin-top:4px;accent-color:var(--ac)}
+.rep{background:none;border:0;color:#777;font:11px "JetBrains Mono",monospace;cursor:pointer;margin-top:8px;text-decoration:underline}.rep:hover{color:var(--ac)}
+footer a{color:var(--mu)}footer a:hover{color:var(--ac)}code{color:var(--ac)}
+</style></head><body>
+<header><a class="logo" href="#">DEAD<b>CODE</b></a>
+<nav><a href="#graveyard" data-n="graveyard">Graveyard</a><a href="#resurrected" data-n="resurrected">Resurrected</a><a href="#submit" data-n="submit">Submit Project</a></nav></header>
+<main id="app"></main>
+<footer id="ft"></footer>
+<script>
+const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CAT={Programming:{c:'#FF8C32',w:['print()','input()','def','return','import','const','function']},Design:{c:'#4cc9f0',w:['▭','◫','Aa','grid','#hex','◉']},Games:{c:'#a855f7',w:['■','▪','HP','+1UP','▓']},Business:{c:'#22c55e',w:['$','↗','ROI','KPI','▮▮']}};
+const ST=['FREE','FOR SALE','OPEN SOURCE','PARTNERSHIP'];
+const D=(id,title,ep,author,cat,tech,born,died,st,added,extra={})=>({id,title,ep,author,cat,tech,born,died,st,added,demo:1,desc:'Демо-описание проекта «'+title+'». Тестовые данные для наполнения каталога.',hist:'Начинался как выходной эксперимент и вырос в серьёзный прототип.',why:'Закончилось время и мотивация.',done:['Прототип','Базовая архитектура'],todo:['Тесты','Документация','Релиз'],gh:'',terms:'Передаётся целиком, без обязательств.',contact:'demo@example.invalid',shots:[],...extra});
+let P=[
+D('nebula','Nebula CMS','Он мечтал о headless-мире','demo_ava','Programming',['TypeScript','Node'],'2022-03','2024-01','OPEN SOURCE','2026-11-01',{gh:'https://github.com/'}),
+D('pixelkeep','PixelKeep','Последний босс остался непобеждён','demo_rex','Games',['C#','Unity'],'2021-06','2023-09','FREE','2026-10-28'),
+D('moodboard','Moodboard.io','Вдохновение ушло вместе с дедлайном','demo_lin','Design',['Figma','React'],'2023-01','2024-05','FOR SALE','2026-10-20'),
+D('ledgerly','Ledgerly','Баланс не сошёлся','demo_max','Business',['Python','Django'],'2020-09','2022-12','PARTNERSHIP','2026-10-12'),
+D('rustbird','RustBird','Взлетел, но не приземлился','demo_kai','Programming',['Rust','WASM'],'2022-07','2023-11','OPEN SOURCE','2026-10-05'),
+D('shadowrun2d','Shadow Run 2D','Бежал, пока хватало кадров','demo_zoe','Games',['Godot','GDScript'],'2023-02','2024-03','FREE','2026-09-30'),
+D('reviveme','Notes Revived','Заметки получили вторую жизнь','demo_old','Programming',['Vue','Supabase'],'2021-01','2022-02','OPEN SOURCE','2026-08-01',{res:{by:'demo_new',what:'Переписан на TypeScript, добавлена синхронизация.',link:'https://example.com/',date:'2026-09-14'}}),
+D('brandkit','BrandKit','Бренд обрёл новое лицо','demo_pia','Design',['Figma'],'2022-05','2023-04','FREE','2026-07-15',{res:{by:'demo_studio',what:'Новая айдентика и дизайн-система.',link:'https://example.com/',date:'2026-10-02'}})
+];
+try{P=P.concat(JSON.parse(localStorage.getItem('dc-user')||'[]'))}catch(e){}
+const tomb=(p,i)=>`<article class="tomb v${i%3}" data-id="${p.id}" tabindex="0">${p.demo?'<span class="demo">DEMO</span>':''}<div class="rip">R.I.P.</div><h3>${esc(p.title)}</h3><p class="ep">«${esc(p.ep)}»</p><div class="by">${esc(p.author)} · ${esc(p.cat)}</div><div class="tags">${p.tech.map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="dates">${esc(p.born)} — ${esc(p.died)}</div><span class="st s-${p.st.replace(' ','')}">${p.st}</span><button class="btn" data-r="${p.id}">Resurrect</button><button class="rep" data-rep="${p.id}">Report</button></article>`;
+const buried=()=>P.filter(p=>!p.res);
+function fx(cat,rect,done){
+ if(RM){done();return}
+ const cf=CAT[cat]||CAT.Programming,cv=document.createElement('canvas'),x=cv.getContext('2d');cv.id='fx';document.body.appendChild(cv);
+ const W=cv.width=innerWidth,H=cv.height=innerHeight,ox=rect.left+rect.width/2,oy=Math.min(rect.bottom,H-10),pa=[],T=3800,s=performance.now();
+ (function f(n){const t=(n-s)/T;x.clearRect(0,0,W,H);
+  const fade=t>.75?Math.max(0,1-(t-.75)/.25):1,g=Math.min(1,t/.5),e=g*g*(3-2*g);
+  x.globalCompositeOperation='lighter';
+  let r=40+e*Math.max(W,H)*.35,gr=x.createRadialGradient(ox,oy,0,ox,oy,r);gr.addColorStop(0,cf.c+'cc');gr.addColorStop(1,cf.c+'00');x.globalAlpha=.55*e*fade;x.fillStyle=gr;x.fillRect(0,0,W,H);
+  if(t>.3){const b=Math.min(1,(t-.3)/.15),w=(26+Math.random()*6)*b;x.globalAlpha=fade*b;const bg=x.createLinearGradient(ox-w,0,ox+w,0);bg.addColorStop(0,cf.c+'00');bg.addColorStop(.5,'#fff');bg.addColorStop(1,cf.c+'00');x.fillStyle=bg;x.fillRect(ox-w,0,w*2,oy)}
+  if(t>.33&&t<.8)for(let k=0;k<3;k++){const word=Math.random()<.35;pa.push({x:ox+(Math.random()-.5)*50,y:oy-20,vx:(Math.random()-.5)*5,vy:-3-Math.random()*7,l:1,w:word?cf.w[Math.random()*cf.w.length|0]:null,s:2+Math.random()*3})}
+  x.globalCompositeOperation='source-over';
+  pa.forEach(q=>{q.x+=q.vx;q.y+=q.vy;q.vy+=.06;q.l-=.008;if(q.l<=0)return;x.globalAlpha=Math.max(0,q.l)*fade;x.fillStyle=cf.c;x.shadowColor=cf.c;x.shadowBlur=12;
+   if(q.w){x.font='600 15px "JetBrains Mono",monospace';x.fillText(q.w,q.x,q.y)}else x.fillRect(q.x,q.y,q.s,q.s)});
+  x.shadowBlur=0;
+  if(t<1)requestAnimationFrame(f);else{cv.remove();done()}})(s);
+}
+function resurrect(id,el,after){const p=P.find(q=>q.id===id);if(!p)return;if(el&&!RM)el.classList.add('shake');
+ const r=(el||document.body).getBoundingClientRect();
+ fx(p.cat,el?r:{left:innerWidth/2,width:0,bottom:innerHeight*.8},()=>{el&&el.classList.remove('shake');after(p)})}
+function toast(m){const t=document.createElement('div');t.id='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+const view={
+home(){const f=buried().slice(0,3),r=buried().sort((a,b)=>b.added.localeCompare(a.added)).slice(0,6);
+ return `<section class="hero"><h1>NOTHING IS<br>TRULY <em>DEAD.</em></h1><p>DEADCODE — кладбище заброшенных проектов, где у каждого есть могила, история и шанс на возрождение. Забери чужую идею и дай ей вторую жизнь.</p><a class="btn" href="#graveyard">Explore the graveyard</a> <a class="btn ghost" href="#submit">Bury your project</a>
+ <div class="stats"><div><b>${P.length}</b>Total Buried</div><div><b>${P.filter(p=>p.res).length}</b>Resurrected</div><div><b>${buried().length}</b>Waiting for Revival</div></div></section>
+ <h2 class="sec">Featured</h2><div class="grid">${f.map(tomb).join('')}</div>
+ <h2 class="sec">Recently buried</h2><div class="grid">${r.map(tomb).join('')}</div>`},
+graveyard(){const langs=[...new Set(P.flatMap(p=>p.tech))].sort();
+ return `<h2 class="sec" style="margin-top:44px">Graveyard</h2><div class="filters"><input id="q" placeholder="Поиск по названию и описанию"><select id="fc"><option value="">Категория</option>${Object.keys(CAT).map(c=>`<option>${c}</option>`).join('')}</select><select id="fl"><option value="">Язык / технология</option>${langs.map(c=>`<option>${esc(c)}</option>`).join('')}</select><select id="fs"><option value="">Статус / тип передачи</option>${ST.map(c=>`<option>${c}</option>`).join('')}</select><select id="fd"><option value="new">Сначала новые</option><option value="old">Сначала старые</option></select></div><div class="grid" id="list"></div>`},
+resurrected(){const l=P.filter(p=>p.res);return `<h2 class="sec" style="margin-top:44px">Resurrected</h2>`+(l.length?`<div class="two">${l.map(p=>`<div class="rcard"><h3><s>${esc(p.title)}</s></h3><p>Воскресил: <b>${esc(p.res.by)}</b> · ${esc(p.res.date)}</p><p>${esc(p.res.what)}</p><a href="${esc(p.res.link)}" target="_blank" rel="noopener">Новая версия →</a> ${p.demo?'<span class="pill">DEMO</span>':''}</div>`).join('')}</div>`:'<div class="empty">Пока никто не воскрес.</div>')},
+submit(){return `<h2 class="sec" style="margin-top:44px">Bury your project</h2><form id="sf" class="panel"><label>Название</label><input name="title" required maxlength="60"><label>Эпитафия (коротко)</label><input name="ep" required maxlength="80"><label>Автор</label><input name="author" required maxlength="40"><label>Описание</label><textarea name="desc" rows="3" required></textarea><label>Категория</label><select name="cat">${Object.keys(CAT).map(c=>`<option>${c}</option>`).join('')}</select><label>Причина забрасывания</label><textarea name="why" rows="2" required></textarea><label>Технологии (через запятую)</label><input name="tech" required><label>Что уже готово (по строке)</label><textarea name="done" rows="2"></textarea><label>Что осталось сделать (по строке)</label><textarea name="todo" rows="2"></textarea><label>Тип передачи</label><select name="st">${ST.map(c=>`<option>${c}</option>`).join('')}</select><label>Ссылка на GitHub</label><input name="gh" type="url" placeholder="https://github.com/..."><label>Скриншоты (до 3, в рамках сессии)</label><input name="shots" type="file" accept="image/*" multiple><label>Контакт для связи</label><input name="contact" required><br><div class="panel" style="padding:14px"><h3>Подтверждения</h3>
+<label class="chk"><input type="checkbox" name="c1"> Я имею право публиковать этот проект</label>
+<label class="chk"><input type="checkbox" name="c2"> Я не публикую чужие конфиденциальные данные</label>
+<label class="chk"><input type="checkbox" name="c3"> Я не загружаю пароли, API-ключи и другие секреты</label>
+<label class="chk"><input type="checkbox" name="c4"> Я указываю реальные условия передачи проекта</label>
+<label class="chk"><input type="checkbox" name="c5"> Я ознакомился с правилами платформы: <a href="#l-terms" target="_blank">Terms</a>, <a href="#l-content" target="_blank">Content</a>, <a href="#l-copyright" target="_blank">Copyright</a></label>
+<label class="chk"><input type="checkbox" name="c6"> Даю <a href="#l-consent" target="_blank">отдельное согласие</a> на публикацию моего имени и контакта в карточке проекта</label></div><button class="btn">Bury it</button></form>`},
+project(p){const cm=(()=>{try{return JSON.parse(localStorage.getItem('dc-c-'+p.id)||'[]')}catch(e){return[]}})(),li=a=>`<ul class="l">${a.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+ return `<h2 class="sec" style="margin-top:44px">${esc(p.title)}</h2><p style="color:var(--mu)">«${esc(p.ep)}» · ${esc(p.author)} · ${esc(p.cat)} · ${esc(p.born)} — ${esc(p.died)} <span class="st s-${p.st.replace(' ','')}">${p.st}</span>${p.demo?' <span class="pill">DEMO</span>':''}</p>
+ <div class="panel"><h3>Описание</h3>${esc(p.desc)}</div>
+ <div class="two"><div class="panel"><h3>История</h3>${esc(p.hist)}</div><div class="panel"><h3>Почему заброшен</h3>${esc(p.why)}</div><div class="panel"><h3>Реализовано</h3>${li(p.done)}</div><div class="panel"><h3>Осталось</h3>${li(p.todo)}</div></div>
+ <div class="panel"><h3>Стек</h3>${p.tech.map(t=>`<span class="pill">${esc(t)}</span>`).join('')}${p.gh&&/^https:\/\//i.test(p.gh)?`<p><a href="${esc(p.gh)}" target="_blank" rel="noopener">GitHub →</a></p>`:''}</div>
+ <div class="panel"><h3>Скриншоты</h3><div class="shots">${(p.shots.length?p.shots:[0,0]).map(s=>`<div class="shot">${s?`<img src="${s}" alt="">`:'[ демо-скриншот ]'}</div>`).join('')}</div></div>
+ <div class="panel"><h3>Условия передачи</h3>${esc(p.terms)}<br><br><button class="btn" id="rb">Resurrect</button> <button class="rep" data-rep="${p.id}">Report</button><div id="ct" class="hide" style="margin-top:16px">Контакт автора: <a href="mailto:${esc(p.contact)}">${esc(p.contact)}</a></div></div>
+ <div class="panel"><h3>Комментарии</h3><div id="cl">${cm.map(c=>`<p><b>${esc(c.n)}</b>: ${esc(c.t)}</p>`).join('')||'<span style="color:var(--mu)">Пока тихо.</span>'}</div><label>Имя</label><input id="cn" maxlength="30"><label>Комментарий</label><textarea id="ctx" rows="2" maxlength="400"></textarea><br><br><button class="btn ghost" id="cb">Оставить комментарий</button></div>`}};
+function applyF(){const q=$('#q').value.toLowerCase(),c=$('#fc').value,l=$('#fl').value,s=$('#fs').value,d=$('#fd').value;
+ let a=buried().filter(p=>(!q||(p.title+' '+p.desc+' '+p.ep).toLowerCase().includes(q))&&(!c||p.cat===c)&&(!l||p.tech.includes(l))&&(!s||p.st===s));
+ a.sort((x,y)=>d==='old'?x.added.localeCompare(y.added):y.added.localeCompare(x.added));
+ $('#list').innerHTML=a.length?a.map(tomb).join(''):'<div class="empty" style="grid-column:1/-1">Здесь пусто. Попробуйте другие фильтры.</div>'}
+function route(){const h=location.hash.slice(1),a=$('#app');let n='';
+ try{if(h==='graveyard'){a.innerHTML=view.graveyard();n=h;applyF();document.querySelectorAll('.filters>*').forEach(e=>e.addEventListener('input',applyF))}
+ else if(h==='resurrected'){a.innerHTML=view.resurrected();n=h}
+ else if(h==='submit'){a.innerHTML=view.submit();n=h;$('#sf').onsubmit=submit}
+ else if(h.startsWith('p-')&&P.find(p=>p.id===h.slice(2))){const p=P.find(p=>p.id===h.slice(2));a.innerHTML=view.project(p);bindP(p)}
+ else if(legalRoute(h,a)){n=''}else a.innerHTML=view.home()}catch(e){a.innerHTML='<div class="empty">Что-то пошло не так. <a href="#">На главную</a></div>';console.error(e)}
+ document.querySelectorAll('nav a').forEach(l=>l.classList.toggle('on',l.dataset.n===n));scrollTo(0,0)}
+function bindP(p){$('#rb').onclick=e=>resurrect(p.id,e.target.closest('.panel'),()=>{$('#ct').classList.remove('hide');toast('Проект воскрешён. Свяжитесь с автором.')});
+ $('#cb').onclick=()=>{const n=$('#cn').value.trim()||'anon',t=$('#ctx').value.trim();if(!t){toast('Напишите комментарий');return}
+  let c=[];try{c=JSON.parse(localStorage.getItem('dc-c-'+p.id)||'[]')}catch(e){}c.push({n,t});try{localStorage.setItem('dc-c-'+p.id,JSON.stringify(c))}catch(e){}
+  $('#cl').innerHTML=c.map(x=>`<p><b>${esc(x.n)}</b>: ${esc(x.t)}</p>`).join('');$('#ctx').value=''}}
+async function submit(e){e.preventDefault();const bad=await checkPub(e.target);if(bad){showErr(bad);return}const f=new FormData(e.target),L=k=>String(f.get(k)||'').split('\n').map(s=>s.trim()).filter(Boolean);
+ const shots=await Promise.all([...e.target.shots.files].slice(0,3).map(x=>new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.onerror=()=>r(null);fr.readAsDataURL(x)}))),
+ now=new Date().toISOString().slice(0,10),
+ p={id:'u'+Date.now(),title:f.get('title'),ep:f.get('ep'),author:f.get('author'),desc:f.get('desc'),cat:f.get('cat'),why:f.get('why'),tech:String(f.get('tech')).split(',').map(s=>s.trim()).filter(Boolean),done:L('done'),todo:L('todo'),st:f.get('st'),gh:f.get('gh'),contact:f.get('contact'),hist:'—',terms:'Условия: '+f.get('st')+'. Детали — у автора.',born:now.slice(0,7),died:now.slice(0,7),added:now,shots:shots.filter(Boolean),terms_v:LEGAL.ver,accepted:new Date().toISOString()};
+ P.push(p);try{localStorage.setItem('dc-user',JSON.stringify(P.filter(x=>x.id[0]==='u').map(x=>({...x,shots:[]}))))}catch(err){}
+ toast('Проект похоронен.');location.hash='p-'+p.id}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-r]'),c=e.target.closest('.tomb');
+ if(b){e.stopPropagation();const el=b.closest('.tomb');resurrect(b.dataset.r,el,p=>location.hash='p-'+p.id)}
+ else if(c)location.hash='p-'+c.dataset.id});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList?.contains('tomb'))location.hash='p-'+e.target.dataset.id});
+addEventListener('hashchange',route);route();
+/* ===== LEGAL CENTER (черновик) ===== */
+/* КОНФИГУРАЦИЯ ОПЕРАТОРА: заполните до запуска. Значения в [квадратных скобках] = не заполнено. */
+const LEGAL={ver:'2026-11-12-draft1',updated:'12.11.2026',
+name:'[ПОЛНОЕ ИМЯ ОПЕРАТОРА]',status:'[ОРГАНИЗАЦИОННО-ПРАВОВОЙ СТАТУС]',email:'[КОНТАКТНЫЙ EMAIL]',addr:'[АДРЕС ДЛЯ ЮРИДИЧЕСКИ ЗНАЧИМЫХ ОБРАЩЕНИЙ]',country:'[СТРАНА ОПЕРАТОРА]',start:'[ДАТА НАЧАЛА РАБОТЫ ПЛАТФОРМЫ]'};
+const OPK=['name','status','email','addr','country','start'];
+const ready=()=>OPK.every(k=>!/^\[/.test(LEGAL[k]));
+const op=k=>/^\[/.test(LEGAL[k])?`<mark>${esc(LEGAL[k])}</mark>`:esc(LEGAL[k]);
+let RP='';
+const OPB='<mark>[ОПЕРАТОР]</mark>';
+const DOCS={
+terms:['Terms of Service — Пользовательское соглашение',[
+['1. Назначение платформы','DEADCODE — бесплатная информационная платформа, где пользователи размещают описания заброшенных цифровых проектов и ссылки на них, а другие пользователи могут с ними знакомиться и связываться с авторами. Платформа не берёт комиссий, не принимает платежей и не участвует в сделках между пользователями.'],
+['2. Аккаунты','В текущей версии регистрация и профили <b>не реализованы</b>. Если они появятся, пользователь будет обязан указывать достоверные данные и защищать доступ к аккаунту; соглашение и политика будут обновлены.'],
+['3. Правила публикации','Публикуя проект, пользователь подтверждает, что вправе это делать, не раскрывает чужие конфиденциальные данные и секреты, указывает реальные условия передачи и ознакомился с правилами (см. Content Policy и Copyright Policy). Загрузка исходного кода на платформу не предусмотрена: размещаются описание, скриншоты и ссылки.'],
+['4. Права на проекты','Публикация <b>не передаёт</b> оператору или другим пользователям исключительные права на проект. Оператор не становится владельцем кода. Пользователь предоставляет оператору только неисключительное право показывать размещённые им описание и скриншоты на платформе для её работы. <mark>[Юрист: проверить формулировку лицензии и применимые статьи части IV ГК РФ]</mark>'],
+['5. Условия передачи и RESURRECT','RESURRECT — визуальный эффект и способ открыть контакт автора. Он не заключает договор и не передаёт права. Любая передача или лицензия — отдельное соглашение между автором и заинтересованным лицом; для отчуждения исключительного права по российскому праву требуется письменная форма. Для проектов с открытым кодом обязательны условия их лицензии. <mark>[Юрист: подтвердить]</mark>'],
+['6. Запрещённый контент','Запрещён контент, перечисленный в Content Policy, включая незаконные материалы, вредоносный код, фишинг, чужие персональные данные и секреты.'],
+['7. Жалобы','Жалобы подаются через форму REPORT или COPYRIGHT CLAIM. Оператор регистрирует обращение, проверяет его, может временно скрыть спорную публикацию, запросить пояснения автора и принять решение. Сроки: <mark>[оператор определяет до запуска]</mark>.'],
+['8. Ограничение доступа и удаление','Оператор вправе скрыть или удалить материалы, нарушающие закон или правила, и ограничить доступ нарушителю. По возможности автору сообщается причина. Автор может удалить свою публикацию сам.'],
+['9. Гарантии и ответственность','Платформа предоставляется «как есть» в пределах, допускаемых законом. Оператор не гарантирует достоверность материалов пользователей, но действует как информационный посредник и принимает меры по обоснованным жалобам. Ответственность, которую закон возлагает на оператора, не исключается. <mark>[Юрист: проверить применимость положений об информационных посредниках, ст. 1253.1 ГК РФ]</mark>'],
+['10. Споры и применимое право','Споры стороны стремятся решить путём переговоров и претензий. Применимое право и подсудность: <mark>[определить с юристом с учётом места нахождения оператора и пользователей]</mark>. Положения соглашения не лишают пользователя защиты, предоставляемой императивными нормами закона.'],
+['11. Оператор',()=>`${op('name')}, ${op('status')}, ${op('country')}. Email: ${op('email')}. Адрес для юридически значимых обращений: ${op('addr')}.`]]],
+privacy:['Privacy Policy — Политика обработки персональных данных',[
+['Статус документа','Описывает <b>фактическое поведение текущей версии сайта</b>. Если появятся серверная часть, аккаунты или аналитика, политику нужно пересмотреть до их включения.'],
+['1. Какие данные обрабатываются','Только то, что пользователь вводит сам: имя или псевдоним автора, контакт для связи, текст проектов, имя и текст комментариев, отметка о принятии условий (версия и время), содержимое жалоб и контакт заявителя. Всё это сейчас сохраняется <b>только в localStorage вашего браузера</b>; на сервер оператора не передаётся, т. к. серверной части нет. Cookies сайт не устанавливает.'],
+['2. Цели','Показ ваших публикаций и комментариев в вашем браузере, подтверждение принятых условий, подготовка обращений оператору.'],
+['3. Правовые основания','Согласие субъекта (оформляется отдельным документом, см. страницу «Согласие»), исполнение соглашения, законные интересы оператора. <mark>[Юрист: подтвердить основания для каждой цели]</mark>'],
+['4. Сторонние ресурсы','Страница загружает шрифты с fonts.googleapis.com и fonts.gstatic.com (Google), поэтому ваш IP-адрес и данные браузера передаются за пределы РФ. <mark>[До запуска: разместить шрифты на своём сервере или получить юридическое заключение о допустимости]</mark>. Ссылка «mailto:» открывает ваш почтовый клиент.'],
+['5. Сроки и удаление','Данные хранятся в браузере, пока вы их не удалите. Кнопка ниже удаляет проекты, комментарии и жалобы, созданные вами на этом устройстве.<br><br><button class="btn ghost" id="wipe">Удалить мои локальные данные</button>'],
+['6. Исправление и доступ','Локальные данные вы видите и контролируете сами. Для будущих серверных данных: запросы об уточнении, доступе и удалении принимаются по адресу оператора (см. Legal Contacts); сроки ответа <mark>[определить по закону]</mark>.'],
+['7. Защита и локализация','Сейчас серверное хранение отсутствует. При подключении базы данных для граждан РФ нужно обеспечить первичный сбор и хранение в базах на территории РФ и проверить обязанность уведомления Роскомнадзора. <mark>[Юрист: проверить по актуальным редакциям 152-ФЗ]</mark>'],
+['8. Контакты по персональным данным',()=>`${op('name')}, ${op('email')}, ${op('addr')}.`]]],
+consent:['Согласие на обработку персональных данных',[
+['Отдельный документ','Это согласие не входит в пользовательское соглашение и даётся отдельной отметкой. <mark>[Юрист: сверить с требованиями ст. 9 152-ФЗ в действующей редакции]</mark>'],
+['Оператор',()=>`${op('name')}, ${op('addr')}, ${op('email')}.`],
+['Цель','Публикация на платформе имени/псевдонима автора и контакта для связи в карточке проекта, чтобы заинтересованные лица могли с вами связаться.'],
+['Данные','Имя или псевдоним, контактные данные, указанные вами в форме.'],
+['Действия и срок','Хранение, отображение, удаление. До удаления вами публикации или отзыва согласия.'],
+['Отзыв','Согласие можно отозвать по адресу оператора или удалив публикацию. Отказ от согласия делает невозможной публикацию контакта, но не затрагивает просмотр каталога.']]],
+copyright:['Copyright Policy — Авторские права',[
+['Ваши обязательства','Публикуя проект, вы подтверждаете право на публикацию или наличие разрешений, право предлагать заявленные условия, отсутствие намеренного присвоения чужих разработок и достоверность сведений о лицензии.'],
+['Различия','<ul class="l"><li><b>Собственный код</b> — вы автор и распоряжаетесь им.</li><li><b>Открытый код</b> — использование и перепродажа допустимы только в рамках его лицензии; не любой open source можно свободно продавать.</li><li><b>Код третьих лиц</b> — нужны их разрешения и соблюдение их лицензий.</li><li><b>Идеи и концепции</b> сами по себе авторским правом не охраняются, охраняется их выражение.</li><li><b>Передача исключительных прав</b> — полное отчуждение, нужен письменный договор.</li><li><b>Лицензия</b> — разрешение на определённые способы использования, права остаются у правообладателя.</li></ul>'],
+['Если нарушены ваши права','Подайте <a href="#claim">COPYRIGHT CLAIM</a>. Платформа получает обращение, проверяет его, может временно скрыть публикацию, запросить объяснения автора и принять решение. Автоматическое получение жалобы не означает её юридически полноценного рассмотрения. <mark>[Юрист: определить процедуру и сроки]</mark>']]],
+content:['Content Policy — Правила контента',[
+['Запрещено','<ul class="l"><li>вредоносные программы и вредоносные ссылки;</li><li>фишинговые материалы;</li><li>украденные проекты и материалы, нарушающие авторские права;</li><li>чужие персональные данные;</li><li>пароли, токены, API-ключи и другие секреты;</li><li>незаконный контент.</li></ul>'],
+['Как работает проверка','Форма публикации блокирует очевидные секреты и небезопасные ссылки, но это не гарантия. Нарушения удаляются по жалобе (REPORT) после проверки; при необходимости публикация скрывается на время разбирательства.'],
+['Безопасность текста и файлов','Пользовательский текст выводится с экранированием. Принимаются только PNG, JPEG, WebP, GIF до 2 МБ; SVG и HTML не принимаются. Файлы не исполняются.']]],
+disclaimer:['Disclaimer — Отказ от гарантий',[
+['Что платформа не гарантирует','Работоспособность, отсутствие ошибок и уязвимостей опубликованных проектов; точность технологий, ссылок и описаний; что автор обладает всеми заявленными правами. Информацию предоставляют пользователи, проверяйте проект сами перед использованием.'],
+['Ограничения','Эти положения не снимают с оператора ответственность, которую возлагает закон. <mark>[Юрист: проверить границы]</mark>'],
+['Демо-данные','Проекты с пометкой DEMO — тестовые данные, не реальные проекты.']]],
+contacts:['Legal Contacts — Контакты оператора',[
+['Оператор',()=>`Имя: ${op('name')}<br>Статус: ${op('status')}<br>Страна: ${op('country')}<br>Email: ${op('email')}<br>Адрес для юридически значимых обращений: ${op('addr')}<br>Начало работы: ${op('start')}`],
+['Готовность','Подсвеченные поля не заполнены в конфигурации <code>LEGAL</code>. До их заполнения публичный запуск недопустим.']]]};
+const DN={terms:'Terms',privacy:'Privacy',consent:'Согласие',copyright:'Copyright',content:'Content',disclaimer:'Disclaimer',contacts:'Contacts'};
+const nav=()=>`<p>${Object.keys(DN).map(k=>`<a class="pill" href="#l-${k}">${DN[k]}</a>`).join('')}<a class="pill" href="#report">Report</a><a class="pill" href="#claim">Copyright claim</a></p>`;
+function doc(k){const d=DOCS[k];return `<h2 class="sec" style="margin-top:44px">${d[0]}</h2>${nav()}<p class="warn">ЧЕРНОВИК. Не является юридической консультацией и требует проверки российским юристом. Обновлено: ${LEGAL.updated} (версия ${LEGAL.ver}).</p>`+d[1].map(s=>`<div class="panel"><h3>${s[0]}</h3>${typeof s[1]==='function'?s[1]():s[1]}</div>`).join('')}
+const CATS=['Copyright infringement','Stolen project','Personal data violation','Malware or phishing','Illegal content','Other'];
+function repForm(claim){RP=RP||'';return `<h2 class="sec" style="margin-top:44px">${claim?'Copyright claim':'Report'}</h2>${nav()}
+<p class="warn">Сайт пока без серверной части: обращение сохраняется <b>только в вашем браузере</b> и оператору не отправляется. Чтобы оператор его получил, отправьте его по email кнопкой после регистрации. Приложить файлы нельзя, укажите ссылки на материалы.</p>
+${claim?`<div class="panel"><h3>Как рассматривается обращение</h3><ol class="l"><li>Получение</li><li>Регистрация</li><li>Проверка</li><li>Возможное временное скрытие публикации</li><li>Запрос объяснений у автора</li><li>Решение</li><li>Фиксация результата</li></ol><p style="color:var(--mu)">Шаги 3–7 выполняет оператор вручную, для этого нужна серверная часть. Получение обращения не равно его юридически полноценному рассмотрению.</p></div>`:''}
+<form id="rf" class="panel" novalidate><div id="err" role="alert"></div>
+<label>Проект</label><select name="pid">${P.map(p=>`<option value="${esc(p.id)}"${p.id===RP?' selected':''}>${esc(p.title)}</option>`).join('')}</select>
+<label>Категория</label><select name="cat" ${claim?'disabled':''}>${CATS.map(c=>`<option${claim&&c==='Copyright infringement'?' selected':''}>${c}</option>`).join('')}</select>
+${claim?'<label>Правообладатель (имя)</label><input name="holder" maxlength="80"><label>На чём основаны ваши права</label><textarea name="basis" rows="2"></textarea><label>Ссылка на оригинал</label><input name="orig" type="url" placeholder="https://...">':''}
+<label>Описание нарушения</label><textarea name="desc" rows="4" maxlength="2000"></textarea>
+<label>Ссылки на подтверждающие материалы (по одной в строке)</label><textarea name="ev" rows="2"></textarea>
+<label>Email для обратной связи</label><input name="contact" type="email">
+<label class="chk"><input type="checkbox" name="ok1"> Сведения в обращении достоверны${claim?', я добросовестно полагаю, что публикация нарушает мои права':''}</label>
+<label class="chk"><input type="checkbox" name="ok2"> Согласен на обработку моего email для рассмотрения обращения (<a href="#l-consent" target="_blank">отдельное согласие</a>)</label><br><button class="btn">Зарегистрировать обращение</button></form><div id="rr"></div>`}
+function bindRep(claim){const f=$('#rf');f.onsubmit=e=>{e.preventDefault();const g=n=>(f.elements[n]?.value||'').trim(),er=[];
+ if(g('desc').length<20)er.push('Опишите нарушение подробнее (не менее 20 символов).');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(g('contact')))er.push('Укажите корректный email.');
+ if(claim&&(!g('holder')||!g('basis')))er.push('Укажите правообладателя и основание прав.');
+ const ev=g('ev').split('\n').map(s=>s.trim()).filter(Boolean);if(ev.some(u=>!okUrl(u)))er.push('Ссылки должны начинаться с https://');
+ if(!f.elements.ok1.checked||!f.elements.ok2.checked)er.push('Нужны обе отметки: достоверность и согласие на обработку email.');
+ if(er.length){$('#err').innerHTML='<p class="warn">'+er.map(esc).join('<br>')+'</p>';return}
+ const r={id:'DC-R-'+Date.now(),at:new Date().toISOString(),pid:g('pid'),cat:claim?CATS[0]:g('cat'),desc:g('desc'),ev,contact:g('contact'),holder:g('holder'),basis:g('basis'),orig:g('orig'),terms_v:LEGAL.ver,status:'зарегистрировано локально'};
+ try{const a=JSON.parse(localStorage.getItem('dc-reports')||'[]');a.push(r);localStorage.setItem('dc-reports',JSON.stringify(a))}catch(x){$('#err').innerHTML='<p class="warn">Не удалось сохранить обращение в браузере.</p>';return}
+ const body=encodeURIComponent(`Обращение ${r.id}\nПроект: ${r.pid}\nКатегория: ${r.cat}\n${r.desc}\nМатериалы: ${ev.join(', ')}\nКонтакт: ${r.contact}`);
+ $('#rr').innerHTML=`<div class="panel"><h3>Обращение ${esc(r.id)} зарегистрировано локально</h3><p>${ready()?`<a class="btn" href="mailto:${esc(LEGAL.email)}?subject=${encodeURIComponent('DEADCODE '+r.id)}&body=${body}">Отправить оператору по email</a>`:'<span class="warn">Email оператора не настроен, отправить обращение пока некуда.</span>'}</p></div>`;f.reset()}}
+const okUrl=u=>{try{const x=new URL(u);return x.protocol==='https:'&&!x.username&&!x.password&&!/^[\d.]+$|^\[/.test(x.hostname)}catch(e){return false}};
+const SECR=[/AKIA[0-9A-Z]{16}/,/gh[pousr]_[A-Za-z0-9]{30,}/,/sk-[A-Za-z0-9_-]{20,}/,/-----BEGIN [A-Z ]*PRIVATE KEY-----/,/xox[baprs]-[A-Za-z0-9-]{10,}/,/eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\./,/(password|passwd|api[_-]?key|secret|token)\s*[:=]\s*\S{6,}/i];
+async function magic(f){const b=new Uint8Array(await f.slice(0,12).arrayBuffer()),h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return h.startsWith('89504e47')?'png':h.startsWith('ffd8ff')?'jpg':h.startsWith('47494638')?'gif':(h.startsWith('52494646')&&h.slice(16,24)==='57454250')?'webp':''}
+async function checkPub(form){
+ for(const n of['c1','c2','c3','c4','c5','c6'])if(!form.elements[n].checked)return 'Отметьте все подтверждения и отдельное согласие на публикацию контакта.';
+ for(const el of form.querySelectorAll('input[type=text],input:not([type]),textarea'))if(SECR.some(r=>r.test(el.value)))return 'В поле «'+(el.previousElementSibling?.textContent||el.name)+'» похоже на секрет (ключ, токен, пароль). Удалите его.';
+ const gh=form.elements.gh.value.trim();if(gh&&!okUrl(gh))return 'Ссылка должна начинаться с https:// и не содержать логина или IP-адреса.';
+ const fs=[...form.elements.shots.files];if(fs.length>3)return 'Не более 3 скриншотов.';
+ for(const f of fs){if(f.size>2*1024*1024)return 'Файл '+f.name+' больше 2 МБ.';if(!/\.(png|jpe?g|gif|webp)$/i.test(f.name)||!/^image\/(png|jpeg|gif|webp)$/.test(f.type)||!(await magic(f)))return 'Файл '+f.name+': допустимы только PNG, JPEG, GIF, WebP.'}
+ return null}
+function showErr(m){let e=$('#sf .err');if(!e){e=document.createElement('div');e.className='err';e.setAttribute('role','alert');$('#sf').prepend(e)}e.innerHTML='<p class="warn">'+esc(m)+'</p>';e.scrollIntoView({block:'center'})}
+function legalRoute(h,a){
+ if(h==='legal'){a.innerHTML=`<h2 class="sec" style="margin-top:44px">Legal Center</h2>${nav()}<p class="warn">Документы — черновики, требуют проверки юристом.</p>`;return true}
+ if(h.startsWith('l-')&&DOCS[h.slice(2)]){a.innerHTML=doc(h.slice(2));const w=$('#wipe');if(w)w.onclick=()=>{if(!confirm('Удалить проекты, комментарии и жалобы, созданные вами на этом устройстве?'))return;try{Object.keys(localStorage).filter(k=>k==='dc-user'||k==='dc-reports'||k.startsWith('dc-c-')).forEach(k=>localStorage.removeItem(k))}catch(e){}toast('Локальные данные удалены');P=P.filter(p=>p.demo)};return true}
+ if(h==='report'||h==='claim'){a.innerHTML=repForm(h==='claim');bindRep(h==='claim');return true}
+ return false}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-rep]');if(b){e.stopPropagation();e.preventDefault();RP=b.dataset.rep;location.hash==='#report'?route():location.hash='report'}},true);
+$('#ft').innerHTML=`<p>${Object.keys(DN).map(k=>`<a href="#l-${k}">${DN[k]}</a>`).join(' · ')} · <a href="#report">Report</a> · <a href="#claim">Copyright claim</a></p>DEADCODE · Every project deserves a second life · Проекты с пометкой DEMO — тестовые данные.`;
+if(!ready()){const d=document.createElement('div');d.className='warn top';d.innerHTML='ПРЕ-ЛАНЧ: реквизиты оператора не заполнены (конфигурация LEGAL). Публичный запуск недопустим. <a href="#l-contacts">Подробнее</a>';document.body.prepend(d)}
+route();
+</script></body></html>
