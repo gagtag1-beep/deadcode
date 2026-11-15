@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DEADCODE — Every project deserves a second life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--bg:#090909;--bg2:#141414;--card:#191919;--ac:#FF8C32;--tx:#F2F2F2;--mu:#888;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 "JetBrains Mono",ui-monospace,monospace;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+h1,h2,h3,.logo{font-family:Cinzel,Georgia,serif;letter-spacing:.04em;margin:0}
+a{color:var(--ac)}
+header{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 5vw;border-bottom:1px solid #222;background:#090909cc;position:sticky;top:0;z-index:20;backdrop-filter:blur(8px)}
+.logo{font-size:22px;font-weight:700;color:var(--tx);text-decoration:none;text-shadow:0 0 18px #ff8c3288}.logo b{color:var(--ac)}
+nav{display:flex;gap:6px;flex-wrap:wrap}nav a{color:var(--mu);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;transition:.2s}
+nav a:hover,nav a.on{color:var(--ac);background:#ff8c3216}
+main{max-width:1180px;margin:0 auto;padding:0 5vw 60px;position:relative}
+.hero{text-align:center;padding:90px 0 50px;position:relative}
+.hero::before,.hero::after{content:"";position:absolute;left:50%;top:40%;width:640px;max-width:120vw;height:320px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,#ff8c3222,transparent);filter:blur(30px);animation:fog 9s ease-in-out infinite alternate;z-index:-1}
+.hero::after{top:70%;animation-delay:-4s;background:radial-gradient(closest-side,#ffffff0d,transparent)}
+@keyframes fog{to{transform:translate(-44%,-54%) scale(1.15)}}
+.hero h1{font-size:clamp(34px,8vw,84px);line-height:1.05;text-shadow:0 0 40px #ff8c3255}
+.hero h1 em{color:var(--ac);font-style:normal}
+.hero p{color:var(--mu);max-width:620px;margin:22px auto 30px}
+.btn{font:600 13px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ac);background:var(--ac);color:#090909;padding:12px 22px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+.btn:hover{box-shadow:0 0 26px #ff8c32aa;transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ac)}.btn.ghost:hover{background:#ff8c3218}
+.stats{display:flex;justify-content:center;gap:clamp(18px,6vw,70px);margin:44px 0 10px;flex-wrap:wrap}
+.stats div{text-align:center;color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.1em}.stats b{display:block;font:700 38px Cinzel,serif;color:var(--tx)}
+h2.sec{font-size:26px;margin:56px 0 24px;display:flex;align-items:center;gap:14px}h2.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#ff8c3266,transparent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:34px 24px;align-items:end}
+.tomb{position:relative;padding:58px 20px 70px;text-align:center;cursor:pointer;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E"),linear-gradient(165deg,#333,#1f1f1f 55%,#151515);border-radius:999px 999px 8px 8px;box-shadow:inset 0 2px 0 #ffffff14,inset 0 -40px 50px #000a,inset 0 0 0 1px #0008,0 20px 30px #000c;transition:transform .3s,box-shadow .3s;outline:none}
+.tomb.v1{border-radius:26px 26px 8px 8px;padding-top:44px}.tomb.v2{border-radius:130px 130px 8px 8px / 90px 90px 8px 8px;transform:rotate(-1deg)}
+.tomb.v1::before{content:"✝";position:absolute;top:8px;left:50%;transform:translateX(-50%);color:#ffffff1c;font-size:22px}
+.tomb:hover,.tomb:focus-visible{transform:translateY(-8px);box-shadow:inset 0 2px 0 #ffffff1c,inset 0 -40px 50px #000a,0 14px 50px #ff8c3238,0 0 0 1px #ff8c3255}
+.tomb::after{content:"";position:absolute;left:-12px;right:-12px;bottom:-14px;height:26px;background:radial-gradient(ellipse at top,#1c1c1c,#0b0b0b);border-radius:50%;z-index:-1}
+.tomb .rip{font:11px Cinzel,serif;letter-spacing:.3em;color:#777}
+.tomb h3{font-size:20px;margin:6px 0;color:#cfcfcf;text-shadow:0 1px 0 #000,0 -1px 0 #ffffff22}
+.ep{color:#8b8b8b;font-size:12px;margin:0 0 10px;font-style:italic}.by{font-size:12px;color:var(--mu)}
+.tags{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:10px 0}.tags span{font-size:10px;padding:2px 7px;background:#0006;border:1px solid #333;border-radius:20px;color:#aaa}
+.dates{font-size:11px;color:#666;margin-bottom:10px}
+.st{display:inline-block;font-size:10px;font-weight:600;padding:2px 9px;border-radius:4px;letter-spacing:.1em;margin-bottom:12px;border:1px solid}
+.s-FREE{color:#7ee787}.s-FORSALE{color:#ffd166}.s-OPENSOURCE{color:#4cc9f0}.s-PARTNERSHIP{color:#c58bff}
+.tomb .btn{display:block;margin:0 auto;padding:9px 18px}
+.demo{position:absolute;top:14px;right:18px;font-size:9px;color:#555;letter-spacing:.1em}
+.shake{animation:shake .12s linear 6}@keyframes shake{0%,100%{translate:0}25%{translate:-3px 1px}75%{translate:3px -1px}}
+.rcard{background:var(--card);border:1px solid #2a2a2a;border-radius:10px;padding:20px;box-shadow:0 0 30px #ff8c3210}
+.rcard h3{font-size:18px}.rcard s{color:var(--mu)}.rcard p{color:#bbb;margin:8px 0}
+.panel{background:var(--card);border:1px solid #262626;border-radius:10px;padding:20px;margin-bottom:18px}
+.panel h3{font-size:16px;color:var(--ac);margin-bottom:8px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:28px}
+input,select,textarea{width:100%;background:var(--bg2);color:var(--tx);border:1px solid #2b2b2b;border-radius:6px;padding:10px 12px;font:inherit;font-size:14px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px #ff8c3222}
+label{display:block;font-size:12px;color:var(--mu);margin:14px 0 5px;text-transform:uppercase;letter-spacing:.08em}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.shot{aspect-ratio:16/10;background:repeating-linear-gradient(45deg,#161616,#161616 10px,#1b1b1b 10px,#1b1b1b 20px);border:1px dashed #333;border-radius:8px;display:grid;place-items:center;color:#555;font-size:12px;overflow:hidden}.shot img{width:100%;height:100%;object-fit:cover}
+.hide{display:none}.pill{display:inline-block;font-size:11px;padding:2px 8px;border:1px solid #333;border-radius:20px;color:#aaa;margin:0 4px 4px 0}
+ul.l{margin:0;padding-left:18px;color:#ccc}.empty{color:var(--mu);text-align:center;padding:50px 0}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:100;pointer-events:none}
+.fxd{position:fixed;inset:0;z-index:99;pointer-events:none;background:#02030c;opacity:0}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#222;border:1px solid var(--ac);padding:10px 18px;border-radius:8px;z-index:120;font-size:13px}
+footer{text-align:center;color:#555;font-size:12px;padding:30px 5vw}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+mark{background:#ff8c3233;color:var(--ac);padding:0 4px;border-radius:3px}
+.warn{border:1px solid #ff8c3266;background:#ff8c3212;color:#ffc58f;padding:10px 14px;border-radius:8px;font-size:13px;margin:10px 0}
+.warn.top{margin:0;border-radius:0;text-align:center;border-width:0 0 1px}
+.chk{display:flex;gap:10px;align-items:flex-start;text-transform:none;letter-spacing:0;font-size:13px;color:#ccc;margin:10px 0}
+.chk input{width:auto;margin-top:4px;accent-color:var(--ac)}
+.rep{background:none;border:0;color:#777;font:11px "JetBrains Mono",monospace;cursor:pointer;margin-top:8px;text-decoration:underline}.rep:hover{color:var(--ac)}
+footer a{color:var(--mu)}footer a:hover{color:var(--ac)}code{color:var(--ac)}
+
+/* ===== PHASE 1: CEMETERY ENVIRONMENT ===== */
+:root{--hz:clamp(360px,62vh,640px);--bg:#070a1c;--bg2:#10142e;--card:#131735}
+html{overflow-x:clip}body{position:relative;overflow-x:clip}#ground *{max-width:none}
+#world{position:fixed;inset:0;z-index:-3;overflow:hidden;pointer-events:none}
+#world .sky{position:absolute;inset:0;background:radial-gradient(ellipse 70% 40% at 80% 18%,#3b3a8a55,transparent 70%),radial-gradient(ellipse 120% 35% at 50% 62%,#5a2f7e77,transparent 70%),linear-gradient(#03051400,#03051400),linear-gradient(180deg,#03051a 0,#0b0d33 38%,#1d1650 62%,#2c1d5c 100%)}
+#stars{position:absolute;inset:0;width:100%;height:100%}
+.moon{position:absolute;top:9%;right:13%;width:clamp(96px,15vw,190px);aspect-ratio:1;filter:drop-shadow(0 0 28px #aab8ff88) drop-shadow(0 0 90px #7c8bff66)}
+.moon svg{width:100%;height:100%;display:block}
+.cl{position:absolute;height:14%;border-radius:50%;background:#1a1648;opacity:.7;filter:blur(5px);animation:drift 80s linear infinite alternate}
+.c1{width:140%;top:68%;opacity:.6;left:-40%}.c2{width:110%;top:22%;left:-60%;opacity:.55;animation-duration:110s;animation-direction:alternate-reverse}
+@keyframes drift{to{transform:translateX(26%)}}
+.hl{position:absolute;left:0;width:100%;height:clamp(200px,40vh,380px);top:calc(var(--hz) - clamp(200px,40vh,380px) + 56px);will-change:transform}
+.hl.far{translate:0 calc(var(--sy,0px) * -.05)}.hl.mid{translate:0 calc(var(--sy,0px) * -.12)}
+.mist{position:absolute;left:-10%;width:120%;top:calc(var(--hz) - 120px);height:200px;background:radial-gradient(ellipse 60% 50% at 40% 60%,#8e7be244,transparent),radial-gradient(ellipse 50% 40% at 80% 50%,#5ec4d433,transparent);filter:blur(14px)}
+#ground{position:absolute;left:0;right:0;top:var(--hz);bottom:0;z-index:-2;pointer-events:none;overflow-x:clip;
+ background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22640%22 height=%22720%22%3E%3Cellipse cx=%22188%22 cy=%22397%22 rx=%2255%22 ry=%2219%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22340%22 cy=%22659%22 rx=%2298%22 ry=%2219%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22387%22 cy=%2224%22 rx=%2277%22 ry=%2211%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22338%22 cy=%22288%22 rx=%2298%22 ry=%2223%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22173%22 cy=%22494%22 rx=%2275%22 ry=%2213%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22355%22 cy=%22510%22 rx=%2274%22 ry=%2223%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22505%22 cy=%22174%22 rx=%2265%22 ry=%2220%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22209%22 cy=%22555%22 rx=%2254%22 ry=%2220%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%2279%22 cy=%2286%22 rx=%2264%22 ry=%2221%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cpath d=%22M173 615 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M53 318 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M41 285 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M494 619 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M406 447 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M414 600 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M465 147 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M384 109 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M46 149 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M516 232 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M274 698 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M456 651 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M318 441 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M529 405 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M597 369 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M556 609 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M427 608 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M247 354 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M39 296 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M630 697 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M177 344 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M564 595 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cellipse cx=%22582%22 cy=%22106%22 rx=%224%22 ry=%224%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22587%22 cy=%22273%22 rx=%225%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%2264%22 cy=%22493%22 rx=%226%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22352%22 cy=%2268%22 rx=%226%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%2220%22 cy=%22300%22 rx=%226%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22121%22 cy=%2245%22 rx=%227%22 ry=%224%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%2246%22 cy=%22386%22 rx=%227%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22564%22 cy=%22285%22 rx=%227%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%2236%22 cy=%22317%22 rx=%223%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22110%22 cy=%22614%22 rx=%227%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22202%22 cy=%22417%22 rx=%225%22 ry=%224%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22269%22 cy=%22159%22 rx=%223%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22321%22 cy=%22368%22 rx=%224%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22385%22 cy=%22471%22 rx=%227%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Crect x=%22590%22 y=%22125%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22592%22 cy=%22125%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22589%22 cy=%22124%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3Crect x=%22537%22 y=%22297%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22539%22 cy=%22297%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22536%22 cy=%22296%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3Crect x=%22459%22 y=%22669%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22461%22 cy=%22669%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22458%22 cy=%22668%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3Crect x=%22261%22 y=%22328%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22263%22 cy=%22328%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22260%22 cy=%22327%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3C/svg%3E") 0 90px/640px 720px,url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22900%22 height=%22820%22%3E%3Cellipse cx=%22641%22 cy=%22499%22 rx=%2268%22 ry=%2223%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22669%22 cy=%22212%22 rx=%2268%22 ry=%2218%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22575%22 cy=%22509%22 rx=%2251%22 ry=%2222%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22270%22 cy=%22115%22 rx=%2280%22 ry=%2219%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22213%22 cy=%22106%22 rx=%2268%22 ry=%2214%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22784%22 cy=%22671%22 rx=%2274%22 ry=%2222%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22447%22 cy=%22482%22 rx=%2242%22 ry=%2219%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%22711%22 cy=%22686%22 rx=%2281%22 ry=%2221%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cellipse cx=%2265%22 cy=%22560%22 rx=%2250%22 ry=%2219%22 fill=%22%2305080f%22 opacity=%22.28%22/%3E%3Cpath d=%22M74 70 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M46 204 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M257 624 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M40 806 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M485 344 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M461 615 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M872 210 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M541 249 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M665 311 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M521 14 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M688 97 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M478 680 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M294 426 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M574 95 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M734 270 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M332 786 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M245 535 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M305 40 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M81 586 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M794 120 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M420 120 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cpath d=%22M876 307 l-5 -14 l5 8 l2 -16 l3 16 l5 -9 l-4 15z%22 fill=%22%23245a4c%22 opacity=%22.55%22/%3E%3Cellipse cx=%22395%22 cy=%2268%22 rx=%223%22 ry=%224%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%220%22 cy=%22218%22 rx=%224%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22481%22 cy=%22384%22 rx=%226%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%2274%22 cy=%22579%22 rx=%224%22 ry=%224%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22276%22 cy=%22344%22 rx=%223%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22340%22 cy=%2215%22 rx=%226%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22137%22 cy=%22252%22 rx=%223%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%2261%22 cy=%22476%22 rx=%226%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22698%22 cy=%22572%22 rx=%224%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22521%22 cy=%22195%22 rx=%224%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22659%22 cy=%22392%22 rx=%223%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22430%22 cy=%22217%22 rx=%223%22 ry=%223%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22885%22 cy=%22606%22 rx=%225%22 ry=%222%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Cellipse cx=%22215%22 cy=%22191%22 rx=%226%22 ry=%224%22 fill=%22%232b2a4a%22 opacity=%22.26%22/%3E%3Crect x=%22675%22 y=%22610%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22677%22 cy=%22610%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22674%22 cy=%22609%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3Crect x=%22120%22 y=%2263%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22122%22 cy=%2263%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22119%22 cy=%2262%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3Crect x=%22167%22 y=%22238%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22169%22 cy=%22238%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22166%22 cy=%22237%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3Crect x=%22470%22 y=%22284%22 width=%224%22 height=%229%22 rx=%222%22 fill=%22%23bcd%22/%3E%3Cellipse cx=%22472%22 cy=%22284%22 rx=%229%22 ry=%226%22 fill=%22%237b5bd6%22/%3E%3Ccircle cx=%22469%22 cy=%22283%22 r=%221.6%22 fill=%22%23d9ccff%22/%3E%3C/svg%3E") 220px 300px/900px 820px,radial-gradient(ellipse 55% 260px at 78% 0,#4a7fa033,transparent),linear-gradient(180deg,#132f2b 0,#0f2528 140px,#0a1520 620px,#060a13 100%)}
+.gedge{position:absolute;left:0;right:0;top:-46px;height:64px;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%2264%22%3E%3Cpath d=%22M0 64 L0 50 L4 20 L7 51 L12 30 L15 50 L17 24 L20 54 L22 39 L25 54 L27 21 L30 54 L33 49 L36 50 L41 37 L44 50 L47 48 L50 54 L55 49 L58 56 L64 47 L67 51 L74 30 L77 54 L79 32 L82 54 L87 49 L90 51 L92 33 L95 56 L98 41 L101 53 L104 33 L107 50 L113 41 L116 54 L123 45 L126 50 L132 32 L135 55 L138 39 L141 50 L147 28 L150 50 L156 49 L159 54 L162 35 L165 55 L171 37 L174 56 L178 36 L181 54 L186 39 L189 52 L192 25 L195 51 L202 26 L205 51 L207 32 L210 52 L216 35 L219 52 L226 36 L229 52 L235 48 L238 50 L244 37 L247 51 L240 50 L240 64Z%22 fill=%22%2317352f%22 stroke=%22%232f6b5e%22 stroke-width=%221.5%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E") repeat-x bottom/240px 64px}
+.fog{position:absolute;left:-50%;width:200%;height:170px;top:-70px;background:radial-gradient(ellipse 22% 50% at 15% 55%,#a79be855,transparent),radial-gradient(ellipse 18% 45% at 48% 45%,#7fd3e040,transparent),radial-gradient(ellipse 24% 50% at 82% 55%,#a79be84a,transparent);filter:blur(10px);animation:fogm 90s linear infinite alternate;will-change:transform}
+.fog.f2{top:50px;opacity:.7;animation-duration:140s;animation-direction:alternate-reverse}
+@keyframes fogm{to{transform:translateX(22%)}}
+.tree{position:absolute;top:70px;translate:0 -100%;height:auto;overflow:visible;filter:drop-shadow(0 0 1px #5d6fd9)}
+.tree.tl{left:-2vw;width:clamp(150px,19vw,290px)}.tree.tr{right:-1vw;width:clamp(110px,14vw,220px)}
+.flies i{position:absolute;width:4px;height:4px;border-radius:50%;background:#d8ff8a;box-shadow:0 0 8px 3px #d8ff8a88;animation:fly 9s ease-in-out infinite alternate,blink 3.4s ease-in-out infinite}
+@keyframes fly{to{transform:translate(40px,-26px)}}@keyframes blink{50%{opacity:.15}}
+#vig{position:fixed;inset:0;z-index:49;pointer-events:none;background:radial-gradient(ellipse 120% 100% at 50% 45%,transparent 55%,#02030cbb 100%)}
+header{background:#070a1cb8;border-bottom-color:#1d2149}
+.hero::before{background:radial-gradient(closest-side,#6d4fd433,transparent)}.hero::after{background:radial-gradient(closest-side,#5ec4d414,transparent)}
+.tomb::after{background:radial-gradient(ellipse at top,#03060ccc,#03060c00 70%)}
+footer{position:relative;background:linear-gradient(transparent,#03060cb0)}
+@media(max-width:640px){.moon{top:29%;right:7%;width:84px}.tree.tl{left:-14vw;width:46vw}.tree.tr{right:-10vw;width:32vw}#vig{background:radial-gradient(ellipse 140% 100% at 50% 45%,transparent 60%,#02030c99 100%)}}
+
+/* ===== PHASE 2: TOMBSTONES ===== */
+.grid{gap:64px 30px;padding-top:12px}
+.grid .tomb{--r:0deg;--y:0px;isolation:isolate;background:none;box-shadow:none;border-radius:0;transform:rotate(var(--r)) translateY(var(--y));transition:transform .35s cubic-bezier(.2,.8,.3,1);padding:60px 22px 84px;-webkit-tap-highlight-color:transparent}
+.grid .tomb:hover,.grid .tomb:focus-visible{--y:-7px;box-shadow:none}
+.tomb .stone{position:absolute;inset:0;z-index:-1;pointer-events:none;filter:drop-shadow(0 12px 8px #02040baa) drop-shadow(-8px 4px 6px #02040b66);transition:filter .35s}
+.tomb:hover .stone{filter:drop-shadow(0 0 16px #8a9bff55) drop-shadow(0 18px 12px #02040bbb)}
+.tomb:focus-visible .stone{filter:drop-shadow(0 0 2px #ff8c32) drop-shadow(0 0 10px #ff8c3288) drop-shadow(0 12px 8px #02040baa)}
+.stone::before{content:"";position:absolute;inset:0;
+ background:var(--cr) center/100% 100% no-repeat,radial-gradient(ellipse 48% 20% at 14% 100%,#4f9a6aaa,transparent),radial-gradient(ellipse 30% 13% at 88% 100%,#4f9a6a88,transparent),radial-gradient(ellipse 26% 9% at 30% 0,#5f9a7a55,transparent),linear-gradient(100deg,transparent 60%,#a6b8ff2c),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url%28%23n%29' opacity='.2'/%3E%3C/svg%3E"),linear-gradient(170deg,#4f5576,#30345a 52%,#1d2038);
+ box-shadow:inset 0 2px 0 #ffffff1c,inset 0 -38px 46px #000a,inset -6px 0 12px #8a9bff14}
+.tomb::after{content:"";position:absolute;left:-16%;right:-4%;bottom:-16px;height:32px;z-index:-2;background:radial-gradient(ellipse at 45% 40%,#02040bd9,#02040b00 70%)}
+.tomb .gr{position:absolute;left:-14px;right:-14px;bottom:-14px;height:36px;z-index:2;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2234%22%3E%3Cpath d=%22M0 34 L0 26 L3 13 L5 29 L9 11 L11 27 L16 10 L18 27 L24 10 L26 27 L28 26 L30 28 L36 13 L38 26 L41 19 L43 27 L45 13 L47 29 L53 12 L55 26 L59 9 L61 29 L63 15 L65 26 L68 24 L70 26 L72 12 L74 27 L80 16 L82 29 L87 22 L89 27 L91 11 L93 27 L95 20 L97 27 L103 24 L105 26 L111 11 L113 30 L118 20 L120 28 L120 26 L120 34Z%22 fill=%22%231b4a3d%22 stroke=%22%233f8a76%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E") repeat-x bottom/120px 34px,url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2290%22 height=%2226%22%3E%3Cpath d=%22M0 26 L0 20 L3 12 L5 23 L9 15 L11 23 L17 14 L19 22 L24 14 L26 22 L28 19 L30 21 L35 20 L37 23 L39 12 L41 24 L47 17 L49 24 L55 15 L57 24 L63 19 L65 21 L68 10 L70 22 L74 15 L76 24 L80 17 L82 20 L85 19 L87 21 L92 15 L94 21 L90 20 L90 26Z%22 fill=%22%230f2f2b%22 stroke=%22%232a6a58%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E") repeat-x 30px 100%/90px 26px;filter:drop-shadow(0 -2px 3px #02040b88)}
+.tomb.k0{--cr:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M28 30L35 44L30 55L41 70M72 46L66 58L70 72M55 16L52 26%22 stroke=%22%23060814%22 stroke-width=%221.1%22 fill=%22none%22 opacity=%22.26%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E")}.tomb.k0 .stone::before{border-radius:999px 999px 10px 10px}
+.tomb.k1{--cr:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M20 40L30 48L27 60M62 28L58 42L68 52L64 68L72 78%22 stroke=%22%23060814%22 stroke-width=%221.1%22 fill=%22none%22 opacity=%22.26%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E");padding-top:78px}.tomb.k1 .stone::before{clip-path:polygon(0 100%,0 38%,6% 26%,16% 15%,30% 6%,50% 0,70% 6%,84% 15%,94% 26%,100% 38%,100% 100%)}
+.tomb.k2{--cr:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M40 24L46 38L40 50L50 62M80 34L74 46%22 stroke=%22%23060814%22 stroke-width=%221.1%22 fill=%22none%22 opacity=%22.26%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E");padding-top:40px;padding-bottom:78px}.tomb.k2 .stone::before{border-radius:7px 7px 4px 4px}
+.tomb.k3{--cr:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M18 50L28 56L24 70L36 80M64 20L60 34L70 44M44 60L52 70L48 84M84 60L78 68%22 stroke=%22%23060814%22 stroke-width=%221.1%22 fill=%22none%22 opacity=%22.26%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E");--r:-1.6deg}.tomb.k3 .stone::before{clip-path:polygon(0 100%,0 22%,9% 14%,18% 18%,30% 6%,44% 10%,53% 2%,68% 9%,80% 5%,91% 14%,100% 21%,100% 100%);filter:saturate(.7) brightness(.92)}
+.tomb.k4{--cr:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M20 40L30 48L27 60M62 28L58 42L68 52L64 68L72 78%22 stroke=%22%23060814%22 stroke-width=%221.1%22 fill=%22none%22 opacity=%22.26%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E");--r:1.4deg;width:82%;justify-self:center;padding:40px 14px 72px;font-size:.92em}.tomb.k4 .stone::before{border-radius:18px 18px 4px 4px}
+.tomb.k4 h3{font-size:17px}.tomb.k4 .tags{display:none}
+.grid .tomb .rip{color:#8e94b8}
+.grid .tomb h3{color:#dde1f4;text-shadow:0 1px 0 #02040bcc,0 -1px 0 #ffffff26}
+.grid .tomb .ep{color:#aeb4d2}.grid .tomb .by,.grid .tomb .dates{color:#9aa0c0}
+.grid .tomb .tags span{background:#0a0c1c88;border-color:#4d5379;color:#c4cae4}
+.tomb .pub{font-size:10px;color:#8890b4;margin:-6px 0 10px}
+.grid .tomb .demo{color:#7a82aa}
+@media(max-width:640px){.grid{gap:56px 20px}.tomb.k4{width:86%}}
+
+/* ===== TOMBSTONE SIZE ADJUSTMENT (~35% smaller) ===== */
+.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:70px 40px;padding:10px 2vw 0}
+.grid .tomb{width:100%;max-width:216px;justify-self:center;padding:32px 14px 40px;margin-bottom:0;font-size:11px}
+.grid .tomb:nth-child(3n+1){margin-bottom:22px}.grid .tomb:nth-child(3n+2){margin-bottom:-6px}
+.grid .tomb.k1{padding-top:46px}.grid .tomb.k2{padding-top:24px;padding-bottom:38px}
+.grid .tomb.k4{width:84%;padding:24px 10px 36px;font-size:10.5px}
+.grid .tomb:hover,.grid .tomb:focus-visible{--y:-5px}
+.grid .tomb h3{font-size:15px;margin:4px 0}.grid .tomb.k4 h3{font-size:14px}
+.grid .tomb .rip{font-size:9px}.grid .tomb .ep{font-size:11px;margin-bottom:6px}.grid .tomb .by{font-size:10.5px}
+.grid .tomb .tags{margin:6px 0;gap:4px}.grid .tomb .tags span{font-size:9px;padding:1px 6px}
+.grid .tomb .dates{font-size:10px;margin-bottom:4px}.grid .tomb .pub{font-size:9px;margin:-2px 0 6px}
+.grid .tomb .st{font-size:9px;padding:1px 7px;margin-bottom:8px}
+.grid .tomb .btn{font-size:11px;padding:7px 12px}.grid .tomb .rep{font-size:10px;margin-top:4px}
+.grid .tomb .demo{top:10px;right:12px;font-size:8px}
+.tomb .gr{left:-9px;right:-9px;bottom:-10px;height:26px;background-size:84px 24px,64px 18px;background-position:bottom,20px 100%}
+.tomb::after{height:22px;bottom:-12px}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:52px 14px;padding:10px 0 0}
+ .grid .tomb{max-width:none;padding:28px 10px 40px}.grid .tomb.k4{width:92%}.grid .tomb h3{font-size:14px}.grid .tomb .btn{padding:7px 8px;letter-spacing:.05em}}
+
+/* ===== PHASE 3: RESURRECTION STATES (driven by fx) ===== */
+.grid .tomb.awake .stone{filter:drop-shadow(0 0 2px var(--rc)) drop-shadow(0 0 18px var(--rc)) drop-shadow(0 12px 8px #02040baa)}
+.grid .tomb.revived:not(.awake) .stone{filter:drop-shadow(0 0 1px var(--rc)) drop-shadow(0 0 10px var(--rc)) drop-shadow(0 12px 8px #02040baa)}
+.grid .tomb.revived .gr{filter:drop-shadow(0 -2px 6px var(--rc))}
+.grid .tomb.revived .rip{font-size:0;letter-spacing:0}.grid .tomb.revived .rip::after{content:"✦ REVIVED ✦";font:9px Cinzel,serif;letter-spacing:.25em;color:var(--rc)}
+.panel{transition:box-shadow .6s,border-color .6s}.panel.awake,.panel.revived{border-color:var(--rc);box-shadow:0 0 26px color-mix(in srgb,var(--rc) 35%,transparent)}
+
+/* ===== PHASE 5: LANGUAGE SWITCHER ===== */
+.lang{display:flex;border:1px solid #2b3160;border-radius:999px;overflow:hidden;background:#0a0d26aa}
+.lang button{font:600 11px "JetBrains Mono",monospace;letter-spacing:.08em;background:none;color:var(--mu);border:0;padding:10px 13px;min-width:44px;cursor:pointer;transition:background .2s,color .2s}
+.lang button:hover{color:var(--tx)}.lang button[aria-pressed=true]{background:var(--ac);color:#090909}
+.lang button:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
+.grid .tomb.revived .rip::after{content:var(--rv,"✦ REVIVED ✦")}
+@media(max-width:640px){header .logo{order:0}header .lang{order:1}header nav{order:2;width:100%}}
+
+/* ===== PHASE 6: MOBILE, TOUCH & PERFORMANCE ===== */
+@supports (height:1svh){:root{--hz:clamp(340px,62svh,640px)}}
+body{min-height:100vh;min-height:100svh}
+main,header,footer{padding-left:max(5vw,env(safe-area-inset-left));padding-right:max(5vw,env(safe-area-inset-right))}
+html::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:#070a1cee;z-index:21;pointer-events:none}
+header{top:env(safe-area-inset-top,0px);transition:transform .28s}
+main{overflow-wrap:break-word}main table{display:block;overflow-x:auto}main pre{overflow-x:auto}
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr))}
+.two{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+.filters{grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr))}
+.shots{grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr))}
+.btn{white-space:normal;text-align:center}
+.grid .tomb h3,.grid .tomb .ep,.grid .tomb .by{overflow-wrap:anywhere}
+.panel,.rcard{overflow-wrap:anywhere}
+select{text-overflow:ellipsis}
+#toast{width:max-content;max-width:calc(100vw - 32px);text-align:center}
+a,button,.tomb,label,select,input,textarea{touch-action:manipulation}
+a,button{-webkit-tap-highlight-color:#ff8c3224}
+.btn:active{transform:scale(.97);filter:brightness(1.15)}.btn.ghost:active{background:#ff8c3228}
+.rep:active{color:var(--ac)}nav a:active{background:#ff8c3226;color:var(--ac)}.lang button:active{background:#ff8c3240}
+.grid .tomb{transition:transform .35s cubic-bezier(.2,.8,.3,1),scale .12s}
+.grid .tomb:active:not(:has(button:active)){scale:.975}
+body.kb header,body.kb::after{position:static}
+.paused *,.paused *::before,.paused *::after{animation-play-state:paused!important}
+/* lighter rendering on phones/tablets */
+@media(max-width:768px),(hover:none){
+ header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#070a1cf2}
+ .cl{animation:none}.mist{filter:none}.fog{filter:none}
+ .hero::before,.hero::after{filter:none;animation:none}
+ .tomb .stone{filter:drop-shadow(0 10px 6px #02040baa)}
+}
+/* no hover-only behaviour: neutralise sticky hover, expose hover-only info */
+@media(hover:none){
+ .grid .tomb:hover{--y:0px}.tomb:hover .stone{filter:drop-shadow(0 10px 6px #02040baa)}
+ .btn:hover{box-shadow:none;transform:none}.btn.ghost:hover{background:transparent}
+ nav a:hover:not(.on){color:var(--mu);background:none}.rep:hover{color:#777}.lang button:hover{color:var(--mu)}.lang button[aria-pressed=true]:hover{color:#090909}
+ .tomb .pub[title]::after{content:attr(title);display:block;opacity:.8}
+}
+@media(pointer:coarse){
+ .btn,.rep{min-height:44px}.rep{padding:10px 14px}a.btn{display:inline-flex;align-items:center;justify-content:center}
+ nav a{min-height:44px;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+ .lang button{min-height:44px}
+ input,select,textarea{min-height:44px;font-size:16px}textarea{min-height:88px}
+ input,select,textarea{scroll-margin-block:96px}
+ .chk{padding:4px 0}.chk input{width:22px;height:22px;flex:none;margin-top:1px}
+ a.pill{padding:9px 12px;margin:0 8px 8px 0;font-size:12px}
+ footer a{display:inline-block;padding:13px 4px}
+ header nav a{min-height:44px}.logo{display:inline-flex;align-items:center;min-height:44px}
+ .grid .tomb .btn{margin-bottom:6px}
+}
+@media(max-width:640px){
+ header{gap:8px 12px;padding-top:8px;padding-bottom:8px}.logo{font-size:20px}
+ header.hide{transform:translateY(-110%)}
+ header nav{flex-wrap:nowrap;gap:4px}
+ header nav a{flex:1 1 0;min-width:0;padding:6px 4px;font-size:11px;letter-spacing:.04em;line-height:1.15;display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;border:1px solid #1d2149}
+ header nav a.on{border-color:#ff8c3266}
+ .hero{padding:44px 0 28px}.hero h1{font-size:clamp(28px,9.2vw,56px);overflow-wrap:anywhere}
+ .hero p{margin:16px auto 22px;font-size:14px;color:#c3c7e2;text-shadow:0 1px 8px #03051add}
+ .hero .btn{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:0 auto 10px}
+ .stats{gap:14px 22px;margin:30px 0 4px}.stats b{font-size:30px}.stats div{font-size:11px}
+ h2.sec{font-size:21px;margin:40px 0 18px;gap:10px}
+ .filters{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px}.filters #q{grid-column:1/-1}
+ .panel,.rcard{padding:16px}
+ .panel .btn#rb{display:flex;width:100%;justify-content:center;margin-bottom:8px}
+ form .btn{width:100%;margin-top:6px}
+ main p,.panel,.rcard{hyphens:auto}
+}
+@media(max-width:359px){.filters{grid-template-columns:1fr}}
+/* portrait phones: one readable tombstone per row, zig-zag for depth */
+@media(max-width:479px){
+ .grid{grid-template-columns:minmax(0,1fr);gap:64px 0;padding:6px 0 0}
+ .grid .tomb{--off:clamp(0px,4vw,22px);width:100%;max-width:min(290px,86%);padding:46px 22px 58px;font-size:13px}
+ .grid .tomb:nth-child(n){margin-bottom:0}
+ .grid .tomb:not(.k4):nth-child(odd){justify-self:start;margin-left:var(--off)}
+ .grid .tomb:not(.k4):nth-child(even){justify-self:end;margin-right:var(--off)}
+ .grid .tomb.k0{padding-top:58px}.grid .tomb.k1{padding-top:70px}.grid .tomb.k2{padding-top:34px;padding-bottom:54px}.grid .tomb.k3{padding-top:44px}
+ .grid .tomb.k4{width:84%;max-width:250px;padding:32px 16px 52px;justify-self:center}
+ .grid .tomb h3{font-size:19px;margin:6px 0}.grid .tomb.k4 h3{font-size:16px}
+ .grid .tomb .rip{font-size:10px}.grid .tomb .ep{font-size:13px;margin-bottom:8px}.grid .tomb .by{font-size:12px}
+ .grid .tomb .tags span{font-size:11px;padding:2px 8px}.grid .tomb .dates{font-size:12px}.grid .tomb .pub{font-size:11px}
+ .grid .tomb .st{font-size:11px;padding:2px 10px}.grid .tomb .btn{font-size:12.5px;padding:10px 14px}.grid .tomb .rep{font-size:12px}
+ .grid .tomb .demo{font-size:9px;top:14px;right:16px}
+}
+/* landscape phones: short viewport */
+@media(orientation:landscape) and (max-height:500px){
+ :root{--hz:clamp(150px,46vh,260px)}
+ header{position:relative;flex-wrap:nowrap;gap:10px;padding-top:4px;padding-bottom:4px}header nav{flex:1;flex-wrap:nowrap;justify-content:center;width:auto;order:1}header nav a{padding:6px 8px;font-size:11px;letter-spacing:.04em}.logo{font-size:18px;order:0}header .lang{order:2}
+ .moon{top:7%;right:8%;width:64px}.tree.tl{left:-3vw;width:28vh}.tree.tr{right:-2vw;width:20vh}
+ .hero{padding:26px 0 18px}.hero h1{font-size:clamp(26px,9vh,48px)}.hero p{margin:12px auto 16px}
+ .hero .btn{display:inline-flex;width:auto;margin:0 6px 8px}
+ .stats{margin:18px 0 0}h2.sec{margin:28px 0 14px}
+}
+@media(prefers-reduced-motion:reduce){.flies{display:none}header{transition:none}.grid .tomb{transition:none}}
+</style></head><body>
+<div id="world" aria-hidden="true"><div class="sky"></div><canvas id="stars"></canvas><div class="moon"><svg viewBox="0 0 200 200"><defs><radialGradient id="mg" cx=".38" cy=".35"><stop offset="0" stop-color="#fffbe6"/><stop offset="1" stop-color="#cdd6ee"/></radialGradient></defs><circle cx="100" cy="100" r="62" fill="url(#mg)" stroke="#e9ecff" stroke-width="3"/><g fill="#a9b3d6" opacity=".55"><circle cx="78" cy="82" r="11"/><circle cx="122" cy="118" r="15"/><circle cx="108" cy="70" r="6"/><circle cx="84" cy="124" r="7"/></g></svg><i class="cl c1"></i><i class="cl c2"></i></div><svg class="hl far" viewBox="0 0 1600 400" preserveAspectRatio="xMidYMax slice"><path d="M0 230 Q67 169 177 205 Q324 196 434 227 Q547 158 657 215 Q790 179 900 224 Q962 173 1072 202 Q1171 176 1281 206 Q1429 199 1539 216 Q1623 161 1733 223 L1733 400 L0 400Z" fill="#221b52"/><path d="M115 190 l-12 24 h24 z M115 212 l-17 22 h34 z" fill="#17163f"/><path d="M173 172 l-12 34 h24 z M173 203 l-17 31 h34 z" fill="#17163f"/><path d="M346 148 l-12 47 h24 z M346 191 l-17 43 h34 z" fill="#17163f"/><path d="M1371 176 l-12 32 h24 z M1371 205 l-17 29 h34 z" fill="#17163f"/><path d="M515 157 l-12 42 h24 z M515 196 l-17 39 h34 z" fill="#17163f"/><path d="M434 157 l-12 42 h24 z M434 196 l-17 39 h34 z" fill="#17163f"/><path d="M73 158 l-12 42 h24 z M73 196 l-17 38 h34 z" fill="#17163f"/><path d="M1395 185 l-12 27 h24 z M1395 210 l-17 25 h34 z" fill="#17163f"/><path d="M882 155 l-12 44 h24 z M882 195 l-17 40 h34 z" fill="#17163f"/><path d="M805 149 l-12 47 h24 z M805 192 l-17 43 h34 z" fill="#17163f"/><path d="M1042 172 l-12 34 h24 z M1042 203 l-17 31 h34 z" fill="#17163f"/><path d="M1114 167 l-12 37 h24 z M1114 201 l-17 34 h34 z" fill="#17163f"/><path d="M1028 178 l-12 31 h24 z M1028 206 l-17 28 h34 z" fill="#17163f"/><path d="M73 194 l-12 22 h24 z M73 214 l-17 20 h34 z" fill="#17163f"/><path d="M745 166 l-12 37 h24 z M745 200 l-17 34 h34 z" fill="#17163f"/><path d="M652 171 l-12 35 h24 z M652 203 l-17 32 h34 z" fill="#17163f"/><path d="M867 162 l-12 40 h24 z M867 198 l-17 36 h34 z" fill="#17163f"/><path d="M336 160 l-12 41 h24 z M336 197 l-17 37 h34 z" fill="#17163f"/><path d="M363 180 l-12 30 h24 z M363 207 l-17 27 h34 z" fill="#17163f"/><path d="M472 194 l-12 22 h24 z M472 214 l-17 20 h34 z" fill="#17163f"/><path d="M361 175 l-12 33 h24 z M361 205 l-17 30 h34 z" fill="#17163f"/><path d="M355 187 l-12 26 h24 z M355 211 l-17 24 h34 z" fill="#17163f"/><path d="M1044 163 l-12 39 h24 z M1044 199 l-17 36 h34 z" fill="#17163f"/><path d="M736 163 l-12 39 h24 z M736 199 l-17 36 h34 z" fill="#17163f"/><path d="M1381 160 l-12 41 h24 z M1381 197 l-17 37 h34 z" fill="#17163f"/><path d="M372 167 l-12 37 h24 z M372 201 l-17 34 h34 z" fill="#17163f"/><g transform="translate(1180 150)" fill="#141233"><path d="M0 60V20l16-16 16 16V60zM26 60V8l10-18 10 18V60z"/><rect x="10" y="30" width="6" height="9" fill="#ffb35a"/></g><path d="M0 300 Q129 263 239 289 Q377 232 487 277 Q620 233 730 300 Q839 240 949 293 Q1082 272 1192 295 Q1256 258 1366 293 Q1464 250 1574 282 Q1655 274 1765 294 L1765 400 L0 400Z" fill="#181640"/></svg><svg class="hl mid" viewBox="0 0 1600 400" preserveAspectRatio="xMidYMax slice"><path d="M0 300 Q109 264 219 292 Q286 277 396 300 Q489 267 599 298 Q691 266 801 299 Q944 271 1054 286 Q1196 270 1306 295 Q1386 281 1496 296 Q1610 256 1720 298 L1720 400 L0 400Z" fill="#101a3a"/><path d="M483 261 l-12 32 h24 z M483 290 l-17 29 h34 z" fill="#0e2430"/><path d="M211 234 l-12 47 h24 z M211 277 l-17 43 h34 z" fill="#0e2430"/><path d="M811 250 l-12 38 h24 z M811 285 l-17 35 h34 z" fill="#0e2430"/><path d="M317 275 l-12 24 h24 z M317 297 l-17 22 h34 z" fill="#0e2430"/><path d="M136 279 l-12 22 h24 z M136 299 l-17 20 h34 z" fill="#0e2430"/><path d="M822 245 l-12 41 h24 z M822 282 l-17 37 h34 z" fill="#0e2430"/><path d="M592 232 l-12 48 h24 z M592 276 l-17 44 h34 z" fill="#0e2430"/><path d="M120 266 l-12 29 h24 z M120 293 l-17 27 h34 z" fill="#0e2430"/><path d="M1065 246 l-12 40 h24 z M1065 283 l-17 37 h34 z" fill="#0e2430"/><path d="M737 263 l-12 31 h24 z M737 291 l-17 28 h34 z" fill="#0e2430"/><path d="M1596 269 l-12 28 h24 z M1596 294 l-17 25 h34 z" fill="#0e2430"/><path d="M217 264 l-12 30 h24 z M217 292 l-17 28 h34 z" fill="#0e2430"/><path d="M439 279 l-12 22 h24 z M439 299 l-17 20 h34 z" fill="#0e2430"/><path d="M1312 264 l-12 30 h24 z M1312 292 l-17 28 h34 z" fill="#0e2430"/><path d="M556 268 l-12 28 h24 z M556 294 l-17 26 h34 z" fill="#0e2430"/><path d="M337 261 l-12 32 h24 z M337 290 l-17 29 h34 z" fill="#0e2430"/><circle cx="210" cy="310" r="38" fill="#0e2a30"/><circle cx="640" cy="310" r="31" fill="#0e2a30"/><circle cx="1010" cy="310" r="28" fill="#0e2a30"/><circle cx="1420" cy="310" r="40" fill="#0e2a30"/><path d="M0 330v-30l5-9l5 9v30M22 330v-30l5-9l5 9v30M44 330v-30l5-9l5 9v30M66 330v-30l5-9l5 9v30M88 330v-30l5-9l5 9v30M110 330v-30l5-9l5 9v30M132 330v-30l5-9l5 9v30M154 330v-30l5-9l5 9v30M176 330v-30l5-9l5 9v30M198 330v-30l5-9l5 9v30M220 330v-30l5-9l5 9v30M242 330v-30l5-9l5 9v30M264 330v-30l5-9l5 9v30M286 330v-30l5-9l5 9v30M308 330v-30l5-9l5 9v30M330 330v-30l5-9l5 9v30M352 330v-30l5-9l5 9v30M374 330v-30l5-9l5 9v30M396 330v-30l5-9l5 9v30M418 330v-30l5-9l5 9v30M440 330v-30l5-9l5 9v30M462 330v-30l5-9l5 9v30M484 330v-30l5-9l5 9v30M506 330v-30l5-9l5 9v30M528 330v-30l5-9l5 9v30M550 330v-30l5-9l5 9v30M572 330v-30l5-9l5 9v30M594 330v-30l5-9l5 9v30M616 330v-30l5-9l5 9v30M638 330v-30l5-9l5 9v30M660 330v-30l5-9l5 9v30M682 330v-30l5-9l5 9v30M704 330v-30l5-9l5 9v30M726 330v-30l5-9l5 9v30M748 330v-30l5-9l5 9v30M770 330v-30l5-9l5 9v30M792 330v-30l5-9l5 9v30M814 330v-30l5-9l5 9v30M836 330v-30l5-9l5 9v30M858 330v-30l5-9l5 9v30M880 330v-30l5-9l5 9v30M902 330v-30l5-9l5 9v30M924 330v-30l5-9l5 9v30M946 330v-30l5-9l5 9v30M968 330v-30l5-9l5 9v30M990 330v-30l5-9l5 9v30M1012 330v-30l5-9l5 9v30M1034 330v-30l5-9l5 9v30M1056 330v-30l5-9l5 9v30M1078 330v-30l5-9l5 9v30M1100 330v-30l5-9l5 9v30M1122 330v-30l5-9l5 9v30M1144 330v-30l5-9l5 9v30M1166 330v-30l5-9l5 9v30M1188 330v-30l5-9l5 9v30M1210 330v-30l5-9l5 9v30M1232 330v-30l5-9l5 9v30M1254 330v-30l5-9l5 9v30M1276 330v-30l5-9l5 9v30M1298 330v-30l5-9l5 9v30M1320 330v-30l5-9l5 9v30M1342 330v-30l5-9l5 9v30M1364 330v-30l5-9l5 9v30M1386 330v-30l5-9l5 9v30M1408 330v-30l5-9l5 9v30M1430 330v-30l5-9l5 9v30M1452 330v-30l5-9l5 9v30M1474 330v-30l5-9l5 9v30M1496 330v-30l5-9l5 9v30M1518 330v-30l5-9l5 9v30M1540 330v-30l5-9l5 9v30M1562 330v-30l5-9l5 9v30M1584 330v-30l5-9l5 9v30" stroke="#0b1026" stroke-width="3" fill="none"/><path d="M0 330H1600" stroke="#0b1026" stroke-width="3"/></svg><div class="mist"></div></div><div id="ground" aria-hidden="true"><div class="gedge"></div><div class="fog f1"></div><div class="fog f2"></div><svg class="tree tl" viewBox="0 0 360 640"><path d="M150 640C158 520 150 430 160 330C170 330 200 330 205 340C198 440 214 540 226 640Z" fill="#141022"/><path d="M200 340C196 450 212 540 224 640" stroke="#4b4a86" stroke-width="3" fill="none"/><circle cx="180" cy="120" r="80" fill="#0e2b2f"/><circle cx="110" cy="190" r="70" fill="#0e2b2f"/><circle cx="260" cy="190" r="72" fill="#0e2b2f"/><circle cx="180" cy="230" r="66" fill="#0e2b2f"/><circle cx="70" cy="260" r="46" fill="#0e2b2f"/><circle cx="300" cy="260" r="50" fill="#0e2b2f"/><circle cx="220" cy="85" r="34" fill="#2a7a72" opacity=".32"/><circle cx="290" cy="170" r="28" fill="#2a7a72" opacity=".32"/><circle cx="240" cy="215" r="24" fill="#2a7a72" opacity=".32"/><circle cx="160" cy="70" r="22" fill="#2a7a72" opacity=".32"/><path d="M110 250c10 30 4 52 8 74M250 250c-4 28 6 50 2 76" stroke="#1d5a52" stroke-width="3" fill="none" opacity=".7"/></svg><svg class="tree tr" viewBox="0 0 300 640"><path d="M120 640C128 540 110 470 124 380C100 330 70 300 40 230M124 380C150 330 190 300 214 220M150 330C150 280 130 250 140 190M190 300C230 290 260 250 270 200M92 310C70 290 50 300 20 280" stroke="#141022" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M120 640C128 540 110 470 124 380L170 380C160 470 176 560 184 640Z" fill="#141022"/><path d="M170 380C160 470 176 560 184 640M214 220C190 300 150 330 124 380" stroke="#4b4a86" stroke-width="3" fill="none"/><path d="M46 270v34" stroke="#2a2a4a" stroke-width="2"/><rect x="38" y="304" width="16" height="22" rx="3" fill="#ffb35a"/><circle cx="46" cy="315" r="30" fill="#ffb35a" opacity=".18"/></svg><div class="flies"></div></div><div id="vig" aria-hidden="true"></div>
+<header><a class="logo" href="#">DEAD<b>CODE</b></a>
+<nav data-ia="nav.label"><a href="#graveyard" data-n="graveyard" data-i="nav.graveyard"></a><a href="#resurrected" data-n="resurrected" data-i="nav.resurrected"></a><a href="#submit" data-n="submit" data-i="nav.submit"></a></nav><div class="lang" role="group" data-ia="lang.label"><button type="button" data-l="ru">RU</button><button type="button" data-l="en">EN</button></div></header>
+<main id="app"></main>
+<footer id="ft"></footer>
+<script>
+const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion: reduce)').matches,COARSE=matchMedia('(pointer:coarse)').matches,LOW=(COARSE&&((navigator.hardwareConcurrency||4)<=4||(navigator.deviceMemory||4)<=4))||!!navigator.connection?.saveData;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const T={"tag": ["У каждого проекта есть вторая жизнь", "Every project deserves a second life"], "nav.graveyard": ["Кладбище", "Graveyard"], "nav.resurrected": ["Воскресшие", "Resurrected"], "nav.submit": ["Похоронить проект", "Submit Project"], "nav.label": ["Главное меню", "Main menu"], "lang.label": ["Язык интерфейса", "Interface language"], "hero.h1": ["НИЧТО НЕ<br>СОВСЕМ <em>МЁРТВО.</em>", "NOTHING IS<br>TRULY <em>DEAD.</em>"], "hero.p": ["DEADCODE — кладбище заброшенных проектов, где у каждого есть могила, история и шанс на возрождение. Забери чужую идею и дай ей вторую жизнь.", "DEADCODE is a graveyard of abandoned projects, where each one has a grave, a story and a chance to return. Take someone’s idea and give it a second life."], "hero.explore": ["Войти на кладбище", "Explore the graveyard"], "hero.bury": ["Похоронить проект", "Bury your project"], "st.total": ["Всего похоронено", "Total buried"], "st.res": ["Воскресло", "Resurrected"], "st.wait": ["Ждут возрождения", "Waiting for revival"], "sec.feat": ["Избранное", "Featured"], "sec.recent": ["Недавно похоронены", "Recently buried"], "f.search": ["Поиск по названию и описанию", "Search by title and description"], "f.cat": ["Категория", "Category"], "f.lang": ["Язык / технология", "Language / technology"], "f.st": ["Статус / тип передачи", "Status / transfer type"], "f.new": ["Сначала новые", "Newest first"], "f.old": ["Сначала старые", "Oldest first"], "f.sort": ["Сортировка", "Sort order"], "empty.f": ["Здесь пусто. Попробуйте другие фильтры.", "Nothing here. Try other filters."], "empty.r": ["Пока никто не воскрес.", "Nobody has been resurrected yet."], "rip": ["R.I.P.", "R.I.P."], "btn.res": ["Воскресить", "Resurrect"], "btn.rep": ["Пожаловаться", "Report"], "revived": ["ВОСКРЕС", "REVIVED"], "pub": ["опубл. {0}", "published {0}"], "rc.by": ["Воскресил", "Resurrected by"], "rc.new": ["Новая версия →", "New version →"], "cat.Programming": ["Программирование", "Programming"], "cat.Design": ["Дизайн", "Design"], "cat.Games": ["Игры", "Games"], "cat.Business": ["Бизнес", "Business"], "st.FREE": ["Бесплатно", "Free"], "st.FOR SALE": ["Продаётся", "For sale"], "st.OPEN SOURCE": ["Открытый код", "Open source"], "st.PARTNERSHIP": ["Партнёрство", "Partnership"], "l.title": ["Название", "Title"], "l.ep": ["Эпитафия (коротко)", "Epitaph (short)"], "l.author": ["Автор", "Author"], "l.desc": ["Описание", "Description"], "l.cat": ["Категория", "Category"], "l.why": ["Причина забрасывания", "Reason for abandoning"], "l.tech": ["Технологии (через запятую)", "Technologies (comma-separated)"], "l.done": ["Что уже готово (по строке)", "What is done (one per line)"], "l.todo": ["Что осталось сделать (по строке)", "What is left to do (one per line)"], "l.st": ["Тип передачи", "Transfer type"], "l.gh": ["Ссылка на GitHub", "GitHub link"], "l.shots": ["Скриншоты (до 3, в рамках сессии)", "Screenshots (up to 3, this session only)"], "l.contact": ["Контакт для связи", "Contact"], "conf": ["Подтверждения", "Confirmations"], "c1": ["Я имею право публиковать этот проект", "I have the right to publish this project"], "c2": ["Я не публикую чужие конфиденциальные данные", "I am not publishing anyone else’s confidential data"], "c3": ["Я не загружаю пароли, API-ключи и другие секреты", "I am not uploading passwords, API keys or other secrets"], "c4": ["Я указываю реальные условия передачи проекта", "I am stating the real terms for handing over the project"], "c5": ["Я ознакомился с правилами платформы:", "I have read the platform rules:"], "c6a": ["Даю", "I give"], "c6l": ["отдельное согласие", "separate consent"], "c6b": ["на публикацию моего имени и контакта в карточке проекта", "to publish my name and contact on the project card"], "bury": ["Похоронить", "Bury it"], "t.buried": ["Проект похоронен.", "Project buried."], "p.desc": ["Описание", "Description"], "p.hist": ["История", "History"], "p.why": ["Почему заброшен", "Why it was abandoned"], "p.done": ["Реализовано", "Done"], "p.todo": ["Осталось", "Remaining"], "p.stack": ["Стек", "Stack"], "p.shots": ["Скриншоты", "Screenshots"], "p.terms": ["Условия передачи", "Transfer terms"], "p.contact": ["Контакт автора:", "Author contact:"], "p.com": ["Комментарии", "Comments"], "p.quiet": ["Пока тихо.", "Quiet so far."], "p.name": ["Имя", "Name"], "p.text": ["Комментарий", "Comment"], "p.leave": ["Оставить комментарий", "Leave a comment"], "shot.demo": ["[ демо-скриншот ]", "[ demo screenshot ]"], "shot.alt": ["Скриншот проекта", "Project screenshot"], "t.res": ["Проект воскрешён. Свяжитесь с автором.", "Project resurrected. Contact the author."], "t.write": ["Напишите комментарий", "Write a comment"], "err.page": ["Что-то пошло не так.", "Something went wrong."], "err.home": ["На главную", "Back to home"], "dn.terms": ["Условия", "Terms"], "dn.privacy": ["Конфиденциальность", "Privacy"], "dn.consent": ["Согласие", "Consent"], "dn.copyright": ["Авторские права", "Copyright"], "dn.content": ["Контент", "Content"], "dn.disclaimer": ["Отказ от гарантий", "Disclaimer"], "dn.contacts": ["Контакты", "Contacts"], "f.rep": ["Пожаловаться", "Report"], "f.claim": ["Авторская жалоба", "Copyright claim"], "f.line": ["Проекты с пометкой DEMO — тестовые данные.", "Projects marked DEMO are test data."], "legal": ["Правовой центр", "Legal Center"], "legal.warn": ["Документы — черновики, требуют проверки юристом.", "Documents are drafts and need review by a lawyer."], "warn.draft": ["ЧЕРНОВИК. Не является юридической консультацией и требует проверки российским юристом. Обновлено: {0} (версия {1}).", "DRAFT. Not legal advice; requires review by a Russian lawyer. Updated: {0} (version {1})."], "warn.ru": ["", "The full text of the legal documents below is currently available in Russian only (drafts written for Russian law)."], "wipe.q": ["Удалить проекты, комментарии и жалобы, созданные вами на этом устройстве?", "Delete the projects, comments and reports you created on this device?"], "wipe.ok": ["Локальные данные удалены", "Local data deleted"], "banner": ["ПРЕ-ЛАНЧ: реквизиты оператора не заполнены (конфигурация LEGAL). Публичный запуск недопустим.", "PRE-LAUNCH: operator details are not filled in (LEGAL configuration). Public launch is not allowed."], "banner.l": ["Подробнее", "Details"], "rc.Copyright infringement": ["Нарушение авторских прав", "Copyright infringement"], "rc.Stolen project": ["Украденный проект", "Stolen project"], "rc.Personal data violation": ["Нарушение с персональными данными", "Personal data violation"], "rc.Malware or phishing": ["Вредоносный код или фишинг", "Malware or phishing"], "rc.Illegal content": ["Незаконный контент", "Illegal content"], "rc.Other": ["Другое", "Other"], "r.warn": ["Сайт пока без серверной части: обращение сохраняется <b>только в вашем браузере</b> и оператору не отправляется. Чтобы оператор его получил, отправьте его по email кнопкой после регистрации. Приложить файлы нельзя, укажите ссылки на материалы.", "The site has no server side yet: your report is saved <b>only in your browser</b> and is not sent to the operator. To deliver it, send it by email with the button after registering. Files cannot be attached; give links to the materials."], "r.how": ["Как рассматривается обращение", "How a claim is handled"], "r.s1": ["Получение", "Receipt"], "r.s2": ["Регистрация", "Registration"], "r.s3": ["Проверка", "Review"], "r.s4": ["Возможное временное скрытие публикации", "Possible temporary hiding of the listing"], "r.s5": ["Запрос объяснений у автора", "Request for an explanation from the author"], "r.s6": ["Решение", "Decision"], "r.s7": ["Фиксация результата", "Recording the outcome"], "r.note": ["Шаги 3–7 выполняет оператор вручную, для этого нужна серверная часть. Получение обращения не равно его юридически полноценному рассмотрению.", "Steps 3–7 are done manually by the operator and need a server side. Receiving a claim is not the same as a full legal review."], "r.proj": ["Проект", "Project"], "r.holder": ["Правообладатель (имя)", "Rights holder (name)"], "r.basis": ["На чём основаны ваши права", "Basis of your rights"], "r.orig": ["Ссылка на оригинал", "Link to the original"], "r.vdesc": ["Описание нарушения", "Description of the violation"], "r.ev": ["Ссылки на подтверждающие материалы (по одной в строке)", "Links to supporting materials (one per line)"], "r.email": ["Email для обратной связи", "Email for feedback"], "r.ok1": ["Сведения в обращении достоверны", "The information in this report is accurate"], "r.ok1c": [", я добросовестно полагаю, что публикация нарушает мои права", ", and I believe in good faith that the listing infringes my rights"], "r.ok2": ["Согласен на обработку моего email для рассмотрения обращения", "I agree to processing of my email to handle this report"], "r.btn": ["Зарегистрировать обращение", "Register report"], "v.short": ["Опишите нарушение подробнее (не менее 20 символов).", "Describe the violation in more detail (at least 20 characters)."], "v.email": ["Укажите корректный email.", "Enter a valid email."], "v.holder": ["Укажите правообладателя и основание прав.", "Enter the rights holder and the basis of your rights."], "v.https": ["Ссылки должны начинаться с https://", "Links must start with https://"], "v.checks": ["Нужны обе отметки: достоверность и согласие на обработку email.", "Both checkboxes are required: accuracy and consent to email processing."], "v.save": ["Не удалось сохранить обращение в браузере.", "Could not save the report in your browser."], "r.mail": ["Обращение {0}\nПроект: {1}\nКатегория: {2}\n{3}\nМатериалы: {4}\nКонтакт: {5}", "Report {0}\nProject: {1}\nCategory: {2}\n{3}\nMaterials: {4}\nContact: {5}"], "r.done": ["Обращение {0} зарегистрировано локально", "Report {0} registered locally"], "r.send": ["Отправить оператору по email", "Send to the operator by email"], "r.noemail": ["Email оператора не настроен, отправить обращение пока некуда.", "The operator’s email is not configured, so there is nowhere to send the report yet."], "p.checks": ["Отметьте все подтверждения и отдельное согласие на публикацию контакта.", "Tick all confirmations and the separate consent to publish your contact."], "p.secret": ["Поле «{0}» похоже на секрет (ключ, токен, пароль). Удалите его.", "The field “{0}” looks like a secret (key, token, password). Remove it."], "p.url": ["Ссылка должна начинаться с https:// и не содержать логина или IP-адреса.", "The link must start with https:// and contain no login or IP address."], "p.max": ["Не более 3 скриншотов.", "At most 3 screenshots."], "p.big": ["Файл {0} больше 2 МБ.", "File {0} is larger than 2 MB."], "p.type": ["Файл {0}: допустимы только PNG, JPEG, GIF, WebP.", "File {0}: only PNG, JPEG, GIF and WebP are allowed."], "demo.desc": ["Демо-описание проекта «{0}». Тестовые данные для наполнения каталога.", "Demo description of the project “{0}”. Test data to fill the catalog."], "demo.hist": ["Начинался как выходной эксперимент и вырос в серьёзный прототип.", "Started as a weekend experiment and grew into a serious prototype."], "demo.why": ["Закончилось время и мотивация.", "Ran out of time and motivation."], "demo.done": ["Прототип|Базовая архитектура", "Prototype|Basic architecture"], "demo.todo": ["Тесты|Документация|Релиз", "Tests|Documentation|Release"], "demo.terms": ["Передаётся целиком, без обязательств.", "Handed over as a whole, with no obligations."]};
+const DEMO_EN={"nebula": {"ep": "He dreamed of a headless world"}, "pixelkeep": {"ep": "The final boss was never defeated"}, "moodboard": {"ep": "Inspiration left with the deadline"}, "ledgerly": {"ep": "The books never balanced"}, "rustbird": {"ep": "Took off but never landed"}, "shadowrun2d": {"ep": "Ran until the frames ran out"}, "reviveme": {"ep": "The notes got a second life", "what": "Rewritten in TypeScript, sync added."}, "brandkit": {"ep": "The brand found a new face", "what": "New identity and design system."}};
+let L='ru';const LS='dc-lang',LOC=()=>L==='ru'?'ru-RU':'en-US',warned={};
+const t=(k,...a)=>{let v=T[k]?.[L==='ru'?0:1];if(v===undefined){if(!warned[k]){warned[k]=1;console.warn('i18n: missing',k,L)}v=T[k]?.[L==='ru'?1:0]??k}return v.replace(/\{(\d)\}/g,(_,i)=>a[i]??'')};
+const initLang=()=>{let v=null;try{v=localStorage.getItem(LS)}catch(e){}return v==='ru'||v==='en'?v:((navigator.language||'').toLowerCase().startsWith('ru')?'ru':'en')};
+L=initLang();
+const DK=['terms','privacy','consent','copyright','content','disclaimer','contacts'],dn=k=>t('dn.'+k);
+const cn=c=>T['cat.'+c]?t('cat.'+c):c,stl=c=>T['st.'+c]?t('st.'+c):c;
+const fm=v=>{const m=/^(\d{4})-(\d{2})(?:-(\d{2}))?$/.exec(v||'');if(!m)return esc(v);return new Intl.DateTimeFormat(LOC(),{timeZone:'UTC',year:'numeric',month:'short',...(m[3]?{day:'numeric'}:{})}).format(new Date(Date.UTC(+m[1],+m[2]-1,+(m[3]||1))))};
+const rel=v=>{const d=Math.round((Date.parse(v)-Date.now())/864e5);if(isNaN(d))return esc(v);const r=new Intl.RelativeTimeFormat(LOC(),{numeric:'auto'}),a=Math.abs(d);return a<30?r.format(d,'day'):a<365?r.format(Math.round(d/30),'month'):r.format(Math.round(d/365),'year')};
+const dm=(p,k)=>{if(L==='ru'||!p.demo)return p[k];const e=DEMO_EN[p.id]?.[k];if(e!==undefined)return e;if(k==='desc')return t('demo.desc',p.title);if(k==='done'||k==='todo')return t('demo.'+k).split('|');return T['demo.'+k]?t('demo.'+k):p[k]};
+const CAT={Programming:{c:'#FF8C32',w:['print()','input()','def','return','import','const','function']},Design:{c:'#4cc9f0',w:['▭','◫','Aa','grid','#hex','◉']},Games:{c:'#a855f7',w:['■','▪','HP','+1UP','▓']},Business:{c:'#22c55e',w:['$','↗','ROI','KPI','▮▮']}};
+const ST=['FREE','FOR SALE','OPEN SOURCE','PARTNERSHIP'];
+const D=(id,title,ep,author,cat,tech,born,died,st,added,extra={})=>({id,title,ep,author,cat,tech,born,died,st,added,demo:1,desc:'Демо-описание проекта «'+title+'». Тестовые данные для наполнения каталога.',hist:'Начинался как выходной эксперимент и вырос в серьёзный прототип.',why:'Закончилось время и мотивация.',done:['Прототип','Базовая архитектура'],todo:['Тесты','Документация','Релиз'],gh:'',terms:'Передаётся целиком, без обязательств.',contact:'demo@example.invalid',shots:[],...extra});
+let P=[
+D('nebula','Nebula CMS','Он мечтал о headless-мире','demo_ava','Programming',['TypeScript','Node'],'2022-03','2024-01','OPEN SOURCE','2026-11-01',{gh:'https://github.com/'}),
+D('pixelkeep','PixelKeep','Последний босс остался непобеждён','demo_rex','Games',['C#','Unity'],'2021-06','2023-09','FREE','2026-10-28'),
+D('moodboard','Moodboard.io','Вдохновение ушло вместе с дедлайном','demo_lin','Design',['Figma','React'],'2023-01','2024-05','FOR SALE','2026-10-20'),
+D('ledgerly','Ledgerly','Баланс не сошёлся','demo_max','Business',['Python','Django'],'2020-09','2022-12','PARTNERSHIP','2026-10-12'),
+D('rustbird','RustBird','Взлетел, но не приземлился','demo_kai','Programming',['Rust','WASM'],'2022-07','2023-11','OPEN SOURCE','2026-10-05'),
+D('shadowrun2d','Shadow Run 2D','Бежал, пока хватало кадров','demo_zoe','Games',['Godot','GDScript'],'2023-02','2024-03','FREE','2026-09-30'),
+D('reviveme','Notes Revived','Заметки получили вторую жизнь','demo_old','Programming',['Vue','Supabase'],'2021-01','2022-02','OPEN SOURCE','2026-08-01',{res:{by:'demo_new',what:'Переписан на TypeScript, добавлена синхронизация.',link:'https://example.com/',date:'2026-09-14'}}),
+D('brandkit','BrandKit','Бренд обрёл новое лицо','demo_pia','Design',['Figma'],'2022-05','2023-04','FREE','2026-07-15',{res:{by:'demo_studio',what:'Новая айдентика и дизайн-система.',link:'https://example.com/',date:'2026-10-02'}})
+];
+try{P=P.concat(JSON.parse(localStorage.getItem('dc-user')||'[]'))}catch(e){}
+const vk=id=>{let h=7;for(const c of String(id))h=(h*31+c.charCodeAt(0))>>>0;return h%5};
+const tomb=(p,i)=>`<article class="tomb k${vk(p.id)}" data-id="${p.id}" tabindex="0"><b class="stone"></b><i class="gr"></i>${p.demo?'<span class="demo">DEMO</span>':''}<div class="rip">${t('rip')}</div><h3>${esc(p.title)}</h3><p class="ep">«${esc(dm(p,'ep'))}»</p><div class="by">${esc(p.author)} · ${esc(cn(p.cat))}</div><div class="tags">${p.tech.map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="dates">${fm(p.born)} — ${fm(p.died)}</div><div class="pub" title="${fm(p.added)}">${t('pub',rel(p.added))}</div><span class="st s-${p.st.replace(' ','')}">${stl(p.st)}</span><button class="btn" data-r="${p.id}">${t('btn.res')}</button><button class="rep" data-rep="${p.id}">${t('btn.rep')}</button></article>`;
+const buried=()=>P.filter(p=>!p.res);
+function fx(cat,rect,done,el){
+ if(RM){el&&el.classList.add('revived');done();return}
+ const cf=CAT[cat]||CAT.Programming,col=cf.c,cv=document.createElement('canvas'),x=cv.getContext('2d');cv.id='fx';document.body.appendChild(cv);const dim=document.createElement('div');dim.className='fxd';document.body.appendChild(dim);
+ /* The canvas is anchored in DOCUMENT space (position:absolute) at the viewport origin of the moment the animation starts, so the browser's own scroller moves it together with the tombstone, even when scrolling runs ahead of the main thread. A fixed canvas can only be repainted on the main thread and therefore trails the page while scrolling. */
+ let W,H;const doc=!!el,box=()=>{cv.style.cssText='position:'+(doc?'absolute':'fixed')+';inset:auto;left:0;top:0;width:'+W+'px;height:'+H+'px'};
+ const sz=()=>{const w=document.documentElement.clientWidth||innerWidth,h=innerHeight;if(W===undefined){W=cv.width=w;H=cv.height=h;box();if(doc){const b=cv.getBoundingClientRect();cv.style.left=-b.left+'px';cv.style.top=-b.top+'px'}}else if(w!==W||Math.abs(h-H)>=160){W=cv.width=w;H=cv.height=h;cv.style.width=w+'px';cv.style.height=h+'px'}};sz();
+ const sm=W<640||H<500||LOW,T=sm?3600:4200,s=performance.now(),pa=[],
+ cl=(v)=>v<0?0:v>1?1:v,sg=(t,a,b)=>cl((t-a)/(b-a)),ez=v=>v*v*(3-2*v),
+ sp=document.createElement('canvas'),g=sp.width=sp.height=64,sx=sp.getContext('2d'),gr0=sx.createRadialGradient(32,32,0,32,32,32);
+ gr0.addColorStop(0,'#ffffffe6');gr0.addColorStop(.22,col+'cc');gr0.addColorStop(1,col+'00');sx.fillStyle=gr0;sx.fillRect(0,0,64,64);
+ const add=(k,o)=>{if(pa.length<(LOW?40:sm?70:130))pa.push({k,l:1,ph:Math.random()*6.28,sw:1+Math.random()*2,...o})};
+ /* The canvas lives in document space, so scrolling never changes where the tombstone is relative to it. The target is therefore measured once, and again only when the layout actually changes (window resize / element or body resize) - never per frame, which keeps layout reads out of the scroll path. */
+ let rw=rect.width||120,rh=rect.height||160,ob=rect.bottom,ol=rect.left+rw/2,ox=ol,oy=Math.min(ob,H-10),spread=Math.min(rw,240)*.4;
+ const measure=()=>{sz();if(!el||!el.isConnected)return;const q=el.getBoundingClientRect();if(!q.width&&!q.height)return;const c=cv.getBoundingClientRect(),nw=q.width||120,nl=q.left-c.left+nw/2,nb=q.bottom-c.top,dx=nl-ol,dy=nb-ob;if(dx||dy)for(const k of pa){k.x+=dx;k.y+=dy}rw=nw;rh=q.height||160;ol=nl;ob=nb;ox=ol;oy=Math.min(ob,H-10);spread=Math.min(rw,240)*.4};
+ const ro=el&&typeof ResizeObserver==='function'?new ResizeObserver(measure):null;ro&&(ro.observe(el),ro.observe(document.body));addEventListener('resize',measure,{passive:true});
+ /* Dimming runs on the compositor (Web Animations) with the same smoothstep ramp as before, so it costs no main-thread work per frame. */
+ const E='cubic-bezier(.3333,0,.6667,1)',da=dim.animate?dim.animate([{opacity:0,easing:E},{opacity:.26,offset:.2,easing:'linear'},{opacity:.26,offset:.85,easing:E},{opacity:0}],{duration:T,fill:'both'}):null;
+ let rev=0;if(el){el.style.setProperty('--rc',col);el.classList.add('awake')}
+ (function f(n){const t=(n-s)/T;x.clearRect(0,0,W,H);
+  const env=ez(sg(t,0,.2))*(1-ez(sg(t,.85,1))),fade=1-ez(sg(t,.9,1));
+  if(!da)dim.style.opacity=.26*env;x.globalCompositeOperation='source-over';
+  x.globalCompositeOperation='lighter';
+  const pool=ez(sg(t,.04,.5))*(1-.45*ez(sg(t,.8,1))),R=Math.min(rw*.9,340)+70;
+  x.save();x.translate(ox,oy);x.scale(1,.3);const pg=x.createRadialGradient(0,0,0,0,0,R);pg.addColorStop(0,col+'aa');pg.addColorStop(1,col+'00');x.globalAlpha=.55*pool*fade;x.fillStyle=pg;x.beginPath();x.arc(0,0,R,0,6.283);x.fill();x.restore();
+  const bw=(14+Math.min(rw,200)*.12)*ez(sg(t,.28,.45))*(1-ez(sg(t,.76,.95)));
+  if(bw>.5){const bg=x.createLinearGradient(ox-bw,0,ox+bw,0);bg.addColorStop(0,col+'00');bg.addColorStop(.5,col+'88');bg.addColorStop(1,col+'00');const by=x.createLinearGradient(0,oy,0,0);x.globalAlpha=.7*fade;x.fillStyle=bg;x.fillRect(ox-bw,0,bw*2,oy)}
+  if(t<.34&&Math.random()<(sm?.35:.6))add('s',{x:ox+(Math.random()-.5)*rw*.9,y:oy-Math.random()*rh,vx:0,vy:-.25-Math.random()*.4,d:.012,z:10+Math.random()*10});
+  if(t>.28&&t<.78)for(let k=0;k<(sm?1:2);k++)add('m',{x:ox+(Math.random()-.5)*spread*2,y:oy-rh*.2,vx:0,vy:-1.2-Math.random()*2.6,d:.007,z:12+Math.random()*16,w:Math.random()<.18?cf.w[Math.random()*cf.w.length|0]:null});
+  if(t>.7&&t<.86&&Math.random()<.5)add('e',{x:ox+(Math.random()-.5)*spread*2,y:oy-rh*(.4+Math.random()*.6),vx:0,vy:.25+Math.random()*.3,d:.012,z:9+Math.random()*6});
+  for(let k=pa.length-1;k>=0;k--){const q=pa[k];q.l-=q.d;if(q.l<=0){pa.splice(k,1);continue}
+   q.x+=Math.sin(q.ph+t*9*q.sw)*.5;q.y+=q.vy;const a=Math.sin(Math.min(1,q.l)*Math.PI*.5)*fade;x.globalAlpha=a*(q.k==='m'?.9:.7);
+   x.drawImage(sp,q.x-q.z/2,q.y-q.z/2,q.z,q.z);
+   if(q.w){x.globalAlpha=a;x.fillStyle=col;x.font='600 13px "JetBrains Mono",monospace';x.fillText(q.w,q.x+q.z*.4,q.y)}}
+  const gp=sg(t,.3,.8);
+  if(gp>0&&gp<1){const rise=ez(gp),gs=Math.max(30,Math.min(rw*.2,56)),gx=ox+Math.sin(t*12)*7,gy=oy-rh*.4-rise*Math.min(H*.3,230),al=Math.pow(Math.sin(gp*Math.PI),.7);
+   x.globalAlpha=.8*al;x.drawImage(sp,gx-gs*2,gy-gs*2,gs*4,gs*4);
+   x.globalCompositeOperation='source-over';x.globalAlpha=.78*al;
+   const gg=x.createLinearGradient(0,gy-gs*.6,0,gy+gs);gg.addColorStop(0,'#f4f7ff');gg.addColorStop(1,col+'33');x.fillStyle=gg;
+   x.beginPath();x.arc(gx,gy,gs*.55,Math.PI,0);x.lineTo(gx+gs*.55,gy+gs*.9);for(let k=0;k<4;k++){x.quadraticCurveTo(gx+gs*(.41-k*.275),gy+gs*(k%2?.9:1.15),gx+gs*(.275-k*.275),gy+gs*.9)}x.closePath();x.fill();
+   x.fillStyle='#10143a';x.beginPath();x.ellipse(gx-gs*.2,gy-gs*.05,gs*.07,gs*.1,0,0,6.283);x.ellipse(gx+gs*.2,gy-gs*.05,gs*.07,gs*.1,0,0,6.283);x.fill();x.globalCompositeOperation='lighter'}
+  const rg=sg(t,.68,.96);
+  if(rg>0&&rg<1){x.save();x.translate(ox,oy);x.scale(1,.3);x.globalAlpha=.45*(1-rg)*(1-rg);x.strokeStyle=col;x.lineWidth=3;x.beginPath();x.arc(0,0,ez(rg)*Math.min(rw*1.1,360)+20,0,6.283);x.stroke();x.restore()}
+  if(t>.8&&!rev){rev=1;el&&el.classList.add('revived')}
+  if(t<1)requestAnimationFrame(f);else{pa.length=0;ro&&ro.disconnect();removeEventListener('resize',measure);da&&da.cancel();cv.width=cv.height=0;cv.remove();dim.remove();el&&el.classList.remove('awake');done()}})(s);
+}
+function resurrect(id,el,after){const p=P.find(q=>q.id===id);if(!p)return;if(el&&!RM)el.classList.add('shake');
+ const r=(el||document.body).getBoundingClientRect();
+ if(el&&el.dataset.rz)return;el&&(el.dataset.rz=1);
+ fx(p.cat,el?r:{left:innerWidth/2,width:0,bottom:innerHeight*.8},()=>{el&&(el.classList.remove('shake'),delete el.dataset.rz);after(p)},el)}
+function toast(m){const t=document.createElement('div');t.id='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+const view={
+home(){const f=buried().slice(0,3),r=buried().sort((a,b)=>b.added.localeCompare(a.added)).slice(0,6);
+ return `<section class="hero"><h1>${t('hero.h1')}</h1><p>${t('hero.p')}</p><a class="btn" href="#graveyard">${t('hero.explore')}</a> <a class="btn ghost" href="#submit">${t('hero.bury')}</a>
+ <div class="stats"><div><b>${P.length}</b>${t('st.total')}</div><div><b>${P.filter(p=>p.res).length}</b>${t('st.res')}</div><div><b>${buried().length}</b>${t('st.wait')}</div></div></section>
+ <h2 class="sec">${t('sec.feat')}</h2><div class="grid">${f.map(tomb).join('')}</div>
+ <h2 class="sec">${t('sec.recent')}</h2><div class="grid">${r.map(tomb).join('')}</div>`},
+graveyard(){const langs=[...new Set(P.flatMap(p=>p.tech))].sort();
+ return `<h2 class="sec" style="margin-top:44px">${t('nav.graveyard')}</h2><div class="filters" role="search"><input id="q" placeholder="${t('f.search')}" aria-label="${t('f.search')}"><select id="fc" aria-label="${t('f.cat')}"><option value="">${t('f.cat')}</option>${Object.keys(CAT).map(c=>`<option value="${c}">${cn(c)}</option>`).join('')}</select><select id="fl" aria-label="${t('f.lang')}"><option value="">${t('f.lang')}</option>${langs.map(c=>`<option>${esc(c)}</option>`).join('')}</select><select id="fs" aria-label="${t('f.st')}"><option value="">${t('f.st')}</option>${ST.map(c=>`<option value="${c}">${stl(c)}</option>`).join('')}</select><select id="fd" aria-label="${t('f.sort')}"><option value="new">${t('f.new')}</option><option value="old">${t('f.old')}</option></select></div><div class="grid" id="list"></div>`},
+resurrected(){const l=P.filter(p=>p.res);return `<h2 class="sec" style="margin-top:44px">${t('nav.resurrected')}</h2>`+(l.length?`<div class="two">${l.map(p=>`<div class="rcard"><h3><s>${esc(p.title)}</s></h3><p>${t('rc.by')}: <b>${esc(p.res.by)}</b> · ${fm(p.res.date)}</p><p>${esc(dm({demo:p.demo,id:p.id,res:p.res},'what')??p.res.what)}</p><a href="${esc(p.res.link)}" target="_blank" rel="noopener">${t('rc.new')}</a> ${p.demo?'<span class="pill">DEMO</span>':''}</div>`).join('')}</div>`:`<div class="empty">${t('empty.r')}</div>`)},
+submit(){return `<h2 class="sec" style="margin-top:44px">${t('hero.bury')}</h2><form id="sf" class="panel"><label>${t('l.title')}</label><input name="title" required maxlength="60"><label>${t('l.ep')}</label><input name="ep" required maxlength="80"><label>${t('l.author')}</label><input name="author" required maxlength="40"><label>${t('l.desc')}</label><textarea name="desc" rows="3" required></textarea><label>${t('l.cat')}</label><select name="cat">${Object.keys(CAT).map(c=>`<option value="${c}">${cn(c)}</option>`).join('')}</select><label>${t('l.why')}</label><textarea name="why" rows="2" required></textarea><label>${t('l.tech')}</label><input name="tech" required><label>${t('l.done')}</label><textarea name="done" rows="2"></textarea><label>${t('l.todo')}</label><textarea name="todo" rows="2"></textarea><label>${t('l.st')}</label><select name="st">${ST.map(c=>`<option value="${c}">${stl(c)}</option>`).join('')}</select><label>${t('l.gh')}</label><input name="gh" type="url" placeholder="https://github.com/..."><label>${t('l.shots')}</label><input name="shots" type="file" accept="image/*" multiple><label>${t('l.contact')}</label><input name="contact" required><br><div class="panel" style="padding:14px"><h3>${t('conf')}</h3>
+<label class="chk"><input type="checkbox" name="c1"> ${t('c1')}</label>
+<label class="chk"><input type="checkbox" name="c2"> ${t('c2')}</label>
+<label class="chk"><input type="checkbox" name="c3"> ${t('c3')}</label>
+<label class="chk"><input type="checkbox" name="c4"> ${t('c4')}</label>
+<label class="chk"><input type="checkbox" name="c5"> ${t('c5')} <a href="#l-terms" target="_blank">${dn('terms')}</a>, <a href="#l-content" target="_blank">${dn('content')}</a>, <a href="#l-copyright" target="_blank">${dn('copyright')}</a></label>
+<label class="chk"><input type="checkbox" name="c6"> ${t('c6a')} <a href="#l-consent" target="_blank">${t('c6l')}</a> ${t('c6b')}</label></div><button class="btn">${t('bury')}</button></form>`},
+project(p){const cm=(()=>{try{return JSON.parse(localStorage.getItem('dc-c-'+p.id)||'[]')}catch(e){return[]}})(),li=a=>`<ul class="l">${a.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+ return `<h2 class="sec" style="margin-top:44px">${esc(p.title)}</h2><p style="color:var(--mu)">«${esc(dm(p,'ep'))}» · ${esc(p.author)} · ${esc(cn(p.cat))} · ${fm(p.born)} — ${fm(p.died)} <span class="st s-${p.st.replace(' ','')}">${stl(p.st)}</span>${p.demo?' <span class="pill">DEMO</span>':''}</p>
+ <div class="panel"><h3>${t('p.desc')}</h3>${esc(dm(p,'desc'))}</div>
+ <div class="two"><div class="panel"><h3>${t('p.hist')}</h3>${esc(dm(p,'hist'))}</div><div class="panel"><h3>${t('p.why')}</h3>${esc(dm(p,'why'))}</div><div class="panel"><h3>${t('p.done')}</h3>${li(dm(p,'done'))}</div><div class="panel"><h3>${t('p.todo')}</h3>${li(dm(p,'todo'))}</div></div>
+ <div class="panel"><h3>${t('p.stack')}</h3>${p.tech.map(t=>`<span class="pill">${esc(t)}</span>`).join('')}${p.gh&&/^https:\/\//i.test(p.gh)?`<p><a href="${esc(p.gh)}" target="_blank" rel="noopener">GitHub →</a></p>`:''}</div>
+ <div class="panel"><h3>${t('p.shots')}</h3><div class="shots">${(p.shots.length?p.shots:[0,0]).map(s=>`<div class="shot">${s?`<img loading="lazy" decoding="async" src="${s}" alt="${t('shot.alt')}">`:t('shot.demo')}</div>`).join('')}</div></div>
+ <div class="panel"><h3>${t('p.terms')}</h3>${esc(dm(p,'terms'))}<br><br><button class="btn" id="rb">${t('btn.res')}</button> <button class="rep" data-rep="${p.id}">${t('btn.rep')}</button><div id="ct" class="hide" style="margin-top:16px">${t('p.contact')} <a href="mailto:${esc(p.contact)}">${esc(p.contact)}</a></div></div>
+ <div class="panel"><h3>${t('p.com')}</h3><div id="cl">${cm.map(c=>`<p><b>${esc(c.n)}</b>: ${esc(c.t)}</p>`).join('')||`<span style="color:var(--mu)">${t('p.quiet')}</span>`}</div><label>${t('p.name')}</label><input id="cn" maxlength="30"><label>${t('p.text')}</label><textarea id="ctx" rows="2" maxlength="400"></textarea><br><br><button class="btn ghost" id="cb">${t('p.leave')}</button></div>`}};
+function applyF(){const q=$('#q').value.toLowerCase(),c=$('#fc').value,l=$('#fl').value,s=$('#fs').value,d=$('#fd').value;
+ let a=buried().filter(p=>(!q||(p.title+' '+dm(p,'desc')+' '+dm(p,'ep')).toLowerCase().includes(q))&&(!c||p.cat===c)&&(!l||p.tech.includes(l))&&(!s||p.st===s));
+ a.sort((x,y)=>d==='old'?x.added.localeCompare(y.added):y.added.localeCompare(x.added));
+ $('#list').innerHTML=a.length?a.map(tomb).join(''):`<div class="empty" style="grid-column:1/-1">${t('empty.f')}</div>`}
+function route(){const h=location.hash.slice(1),a=$('#app');let n='';
+ try{if(h==='graveyard'){a.innerHTML=view.graveyard();n=h;applyF();document.querySelectorAll('.filters>*').forEach(e=>e.addEventListener('input',applyF))}
+ else if(h==='resurrected'){a.innerHTML=view.resurrected();n=h}
+ else if(h==='submit'){a.innerHTML=view.submit();n=h;$('#sf').onsubmit=submit}
+ else if(h.startsWith('p-')&&P.find(p=>p.id===h.slice(2))){const p=P.find(p=>p.id===h.slice(2));a.innerHTML=view.project(p);bindP(p)}
+ else if(legalRoute(h,a)){n=''}else a.innerHTML=view.home()}catch(e){a.innerHTML=`<div class="empty">${t('err.page')} <a href="#">${t('err.home')}</a></div>`;console.error(e)}
+ document.querySelectorAll('nav a').forEach(l=>l.classList.toggle('on',l.dataset.n===n));scrollTo(0,0)}
+function bindP(p){$('#rb').onclick=e=>resurrect(p.id,e.target.closest('.panel'),()=>{$('#ct').classList.remove('hide');toast(t('t.res'))});
+ $('#cb').onclick=()=>{const n=$('#cn').value.trim()||'anon',t=$('#ctx').value.trim();if(!t){toast(t('t.write'));return}
+  let c=[];try{c=JSON.parse(localStorage.getItem('dc-c-'+p.id)||'[]')}catch(e){}c.push({n,t});try{localStorage.setItem('dc-c-'+p.id,JSON.stringify(c))}catch(e){}
+  $('#cl').innerHTML=c.map(x=>`<p><b>${esc(x.n)}</b>: ${esc(x.t)}</p>`).join('');$('#ctx').value=''}}
+async function submit(e){e.preventDefault();const bad=await checkPub(e.target);if(bad){showErr(bad);return}const f=new FormData(e.target),L=k=>String(f.get(k)||'').split('\n').map(s=>s.trim()).filter(Boolean);
+ const shots=await Promise.all([...e.target.shots.files].slice(0,3).map(x=>new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.onerror=()=>r(null);fr.readAsDataURL(x)}))),
+ now=new Date().toISOString().slice(0,10),
+ p={id:'u'+Date.now(),title:f.get('title'),ep:f.get('ep'),author:f.get('author'),desc:f.get('desc'),cat:f.get('cat'),why:f.get('why'),tech:String(f.get('tech')).split(',').map(s=>s.trim()).filter(Boolean),done:L('done'),todo:L('todo'),st:f.get('st'),gh:f.get('gh'),contact:f.get('contact'),hist:'—',terms:'Условия: '+f.get('st')+'. Детали — у автора.',born:now.slice(0,7),died:now.slice(0,7),added:now,shots:shots.filter(Boolean),terms_v:LEGAL.ver,accepted:new Date().toISOString()};
+ P.push(p);try{localStorage.setItem('dc-user',JSON.stringify(P.filter(x=>x.id[0]==='u').map(x=>({...x,shots:[]}))))}catch(err){}
+ toast(t('t.buried'));location.hash='p-'+p.id}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-r]'),c=e.target.closest('.tomb');
+ if(b){e.stopPropagation();const el=b.closest('.tomb');resurrect(b.dataset.r,el,p=>location.hash='p-'+p.id)}
+ else if(c)location.hash='p-'+c.dataset.id});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList?.contains('tomb'))location.hash='p-'+e.target.dataset.id});
+addEventListener('hashchange',route);route();
+/* ===== LEGAL CENTER (черновик) ===== */
+/* КОНФИГУРАЦИЯ ОПЕРАТОРА: заполните до запуска. Значения в [квадратных скобках] = не заполнено. */
+const LEGAL={ver:'2026-11-12-draft1',updated:'12.11.2026',
+name:'[ПОЛНОЕ ИМЯ ОПЕРАТОРА]',status:'[ОРГАНИЗАЦИОННО-ПРАВОВОЙ СТАТУС]',email:'[КОНТАКТНЫЙ EMAIL]',addr:'[АДРЕС ДЛЯ ЮРИДИЧЕСКИ ЗНАЧИМЫХ ОБРАЩЕНИЙ]',country:'[СТРАНА ОПЕРАТОРА]',start:'[ДАТА НАЧАЛА РАБОТЫ ПЛАТФОРМЫ]'};
+const OPK=['name','status','email','addr','country','start'];
+const ready=()=>OPK.every(k=>!/^\[/.test(LEGAL[k]));
+const op=k=>/^\[/.test(LEGAL[k])?`<mark>${esc(LEGAL[k])}</mark>`:esc(LEGAL[k]);
+let RP='';
+const OPB='<mark>[ОПЕРАТОР]</mark>';
+const DOCS={
+terms:['Terms of Service — Пользовательское соглашение',[
+['1. Назначение платформы','DEADCODE — бесплатная информационная платформа, где пользователи размещают описания заброшенных цифровых проектов и ссылки на них, а другие пользователи могут с ними знакомиться и связываться с авторами. Платформа не берёт комиссий, не принимает платежей и не участвует в сделках между пользователями.'],
+['2. Аккаунты','В текущей версии регистрация и профили <b>не реализованы</b>. Если они появятся, пользователь будет обязан указывать достоверные данные и защищать доступ к аккаунту; соглашение и политика будут обновлены.'],
+['3. Правила публикации','Публикуя проект, пользователь подтверждает, что вправе это делать, не раскрывает чужие конфиденциальные данные и секреты, указывает реальные условия передачи и ознакомился с правилами (см. Content Policy и Copyright Policy). Загрузка исходного кода на платформу не предусмотрена: размещаются описание, скриншоты и ссылки.'],
+['4. Права на проекты','Публикация <b>не передаёт</b> оператору или другим пользователям исключительные права на проект. Оператор не становится владельцем кода. Пользователь предоставляет оператору только неисключительное право показывать размещённые им описание и скриншоты на платформе для её работы. <mark>[Юрист: проверить формулировку лицензии и применимые статьи части IV ГК РФ]</mark>'],
+['5. Условия передачи и RESURRECT','RESURRECT — визуальный эффект и способ открыть контакт автора. Он не заключает договор и не передаёт права. Любая передача или лицензия — отдельное соглашение между автором и заинтересованным лицом; для отчуждения исключительного права по российскому праву требуется письменная форма. Для проектов с открытым кодом обязательны условия их лицензии. <mark>[Юрист: подтвердить]</mark>'],
+['6. Запрещённый контент','Запрещён контент, перечисленный в Content Policy, включая незаконные материалы, вредоносный код, фишинг, чужие персональные данные и секреты.'],
+['7. Жалобы','Жалобы подаются через форму REPORT или COPYRIGHT CLAIM. Оператор регистрирует обращение, проверяет его, может временно скрыть спорную публикацию, запросить пояснения автора и принять решение. Сроки: <mark>[оператор определяет до запуска]</mark>.'],
+['8. Ограничение доступа и удаление','Оператор вправе скрыть или удалить материалы, нарушающие закон или правила, и ограничить доступ нарушителю. По возможности автору сообщается причина. Автор может удалить свою публикацию сам.'],
+['9. Гарантии и ответственность','Платформа предоставляется «как есть» в пределах, допускаемых законом. Оператор не гарантирует достоверность материалов пользователей, но действует как информационный посредник и принимает меры по обоснованным жалобам. Ответственность, которую закон возлагает на оператора, не исключается. <mark>[Юрист: проверить применимость положений об информационных посредниках, ст. 1253.1 ГК РФ]</mark>'],
+['10. Споры и применимое право','Споры стороны стремятся решить путём переговоров и претензий. Применимое право и подсудность: <mark>[определить с юристом с учётом места нахождения оператора и пользователей]</mark>. Положения соглашения не лишают пользователя защиты, предоставляемой императивными нормами закона.'],
+['11. Оператор',()=>`${op('name')}, ${op('status')}, ${op('country')}. Email: ${op('email')}. Адрес для юридически значимых обращений: ${op('addr')}.`]]],
+privacy:['Privacy Policy — Политика обработки персональных данных',[
+['Статус документа','Описывает <b>фактическое поведение текущей версии сайта</b>. Если появятся серверная часть, аккаунты или аналитика, политику нужно пересмотреть до их включения.'],
+['1. Какие данные обрабатываются','Только то, что пользователь вводит сам: имя или псевдоним автора, контакт для связи, текст проектов, имя и текст комментариев, отметка о принятии условий (версия и время), содержимое жалоб и контакт заявителя. Всё это сейчас сохраняется <b>только в localStorage вашего браузера</b>; на сервер оператора не передаётся, т. к. серверной части нет. Cookies сайт не устанавливает.'],
+['2. Цели','Показ ваших публикаций и комментариев в вашем браузере, подтверждение принятых условий, подготовка обращений оператору.'],
+['3. Правовые основания','Согласие субъекта (оформляется отдельным документом, см. страницу «Согласие»), исполнение соглашения, законные интересы оператора. <mark>[Юрист: подтвердить основания для каждой цели]</mark>'],
+['4. Сторонние ресурсы','Страница загружает шрифты с fonts.googleapis.com и fonts.gstatic.com (Google), поэтому ваш IP-адрес и данные браузера передаются за пределы РФ. <mark>[До запуска: разместить шрифты на своём сервере или получить юридическое заключение о допустимости]</mark>. Ссылка «mailto:» открывает ваш почтовый клиент.'],
+['5. Сроки и удаление','Данные хранятся в браузере, пока вы их не удалите. Кнопка ниже удаляет проекты, комментарии и жалобы, созданные вами на этом устройстве.<br><br><button class="btn ghost" id="wipe">Удалить мои локальные данные</button>'],
+['6. Исправление и доступ','Локальные данные вы видите и контролируете сами. Для будущих серверных данных: запросы об уточнении, доступе и удалении принимаются по адресу оператора (см. Legal Contacts); сроки ответа <mark>[определить по закону]</mark>.'],
+['7. Защита и локализация','Сейчас серверное хранение отсутствует. При подключении базы данных для граждан РФ нужно обеспечить первичный сбор и хранение в базах на территории РФ и проверить обязанность уведомления Роскомнадзора. <mark>[Юрист: проверить по актуальным редакциям 152-ФЗ]</mark>'],
+['8. Контакты по персональным данным',()=>`${op('name')}, ${op('email')}, ${op('addr')}.`]]],
+consent:['Согласие на обработку персональных данных',[
+['Отдельный документ','Это согласие не входит в пользовательское соглашение и даётся отдельной отметкой. <mark>[Юрист: сверить с требованиями ст. 9 152-ФЗ в действующей редакции]</mark>'],
+['Оператор',()=>`${op('name')}, ${op('addr')}, ${op('email')}.`],
+['Цель','Публикация на платформе имени/псевдонима автора и контакта для связи в карточке проекта, чтобы заинтересованные лица могли с вами связаться.'],
+['Данные','Имя или псевдоним, контактные данные, указанные вами в форме.'],
+['Действия и срок','Хранение, отображение, удаление. До удаления вами публикации или отзыва согласия.'],
+['Отзыв','Согласие можно отозвать по адресу оператора или удалив публикацию. Отказ от согласия делает невозможной публикацию контакта, но не затрагивает просмотр каталога.']]],
+copyright:['Copyright Policy — Авторские права',[
+['Ваши обязательства','Публикуя проект, вы подтверждаете право на публикацию или наличие разрешений, право предлагать заявленные условия, отсутствие намеренного присвоения чужих разработок и достоверность сведений о лицензии.'],
+['Различия','<ul class="l"><li><b>Собственный код</b> — вы автор и распоряжаетесь им.</li><li><b>Открытый код</b> — использование и перепродажа допустимы только в рамках его лицензии; не любой open source можно свободно продавать.</li><li><b>Код третьих лиц</b> — нужны их разрешения и соблюдение их лицензий.</li><li><b>Идеи и концепции</b> сами по себе авторским правом не охраняются, охраняется их выражение.</li><li><b>Передача исключительных прав</b> — полное отчуждение, нужен письменный договор.</li><li><b>Лицензия</b> — разрешение на определённые способы использования, права остаются у правообладателя.</li></ul>'],
+['Если нарушены ваши права','Подайте <a href="#claim">COPYRIGHT CLAIM</a>. Платформа получает обращение, проверяет его, может временно скрыть публикацию, запросить объяснения автора и принять решение. Автоматическое получение жалобы не означает её юридически полноценного рассмотрения. <mark>[Юрист: определить процедуру и сроки]</mark>']]],
+content:['Content Policy — Правила контента',[
+['Запрещено','<ul class="l"><li>вредоносные программы и вредоносные ссылки;</li><li>фишинговые материалы;</li><li>украденные проекты и материалы, нарушающие авторские права;</li><li>чужие персональные данные;</li><li>пароли, токены, API-ключи и другие секреты;</li><li>незаконный контент.</li></ul>'],
+['Как работает проверка','Форма публикации блокирует очевидные секреты и небезопасные ссылки, но это не гарантия. Нарушения удаляются по жалобе (REPORT) после проверки; при необходимости публикация скрывается на время разбирательства.'],
+['Безопасность текста и файлов','Пользовательский текст выводится с экранированием. Принимаются только PNG, JPEG, WebP, GIF до 2 МБ; SVG и HTML не принимаются. Файлы не исполняются.']]],
+disclaimer:['Disclaimer — Отказ от гарантий',[
+['Что платформа не гарантирует','Работоспособность, отсутствие ошибок и уязвимостей опубликованных проектов; точность технологий, ссылок и описаний; что автор обладает всеми заявленными правами. Информацию предоставляют пользователи, проверяйте проект сами перед использованием.'],
+['Ограничения','Эти положения не снимают с оператора ответственность, которую возлагает закон. <mark>[Юрист: проверить границы]</mark>'],
+['Демо-данные','Проекты с пометкой DEMO — тестовые данные, не реальные проекты.']]],
+contacts:['Legal Contacts — Контакты оператора',[
+['Оператор',()=>`Имя: ${op('name')}<br>Статус: ${op('status')}<br>Страна: ${op('country')}<br>Email: ${op('email')}<br>Адрес для юридически значимых обращений: ${op('addr')}<br>Начало работы: ${op('start')}`],
+['Готовность','Подсвеченные поля не заполнены в конфигурации <code>LEGAL</code>. До их заполнения публичный запуск недопустим.']]]};
+
+const nav=()=>`<p>${DK.map(k=>`<a class="pill" href="#l-${k}">${dn(k)}</a>`).join('')}<a class="pill" href="#report">${t('f.rep')}</a><a class="pill" href="#claim">${t('f.claim')}</a></p>`;
+function doc(k){const d=DOCS[k];return `<h2 class="sec" style="margin-top:44px">${d[0].split(' — ')[L==='ru'?1:0]||d[0]}</h2>${nav()}<p class="warn">${t('warn.draft',LEGAL.updated,LEGAL.ver)}</p>${L==='en'?`<p class="warn">${t('warn.ru')}</p>`:''}`+d[1].map(s=>`<div class="panel"><h3>${s[0]}</h3>${typeof s[1]==='function'?s[1]():s[1]}</div>`).join('')}
+const CATS=['Copyright infringement','Stolen project','Personal data violation','Malware or phishing','Illegal content','Other'];
+function repForm(claim){RP=RP||'';return `<h2 class="sec" style="margin-top:44px">${claim?t('f.claim'):t('f.rep')}</h2>${nav()}
+<p class="warn">${t('r.warn')}</p>
+${claim?`<div class="panel"><h3>${t('r.how')}</h3><ol class="l">${[1,2,3,4,5,6,7].map(i=>`<li>${t('r.s'+i)}</li>`).join('')}</ol><p style="color:var(--mu)">${t('r.note')}</p></div>`:''}
+<form id="rf" class="panel" novalidate><div id="err" role="alert"></div>
+<label>${t('r.proj')}</label><select name="pid">${P.map(p=>`<option value="${esc(p.id)}"${p.id===RP?' selected':''}>${esc(p.title)}</option>`).join('')}</select>
+<label>${t('l.cat')}</label><select name="cat" ${claim?'disabled':''}>${CATS.map(c=>`<option value="${c}"${claim&&c==='Copyright infringement'?' selected':''}>${t('rc.'+c)}</option>`).join('')}</select>
+${claim?`<label>${t('r.holder')}</label><input name="holder" maxlength="80"><label>${t('r.basis')}</label><textarea name="basis" rows="2"></textarea><label>${t('r.orig')}</label><input name="orig" type="url" placeholder="https://...">`:''}
+<label>${t('r.vdesc')}</label><textarea name="desc" rows="4" maxlength="2000"></textarea>
+<label>${t('r.ev')}</label><textarea name="ev" rows="2"></textarea>
+<label>${t('r.email')}</label><input name="contact" type="email">
+<label class="chk"><input type="checkbox" name="ok1"> ${t('r.ok1')}${claim?t('r.ok1c'):''}</label>
+<label class="chk"><input type="checkbox" name="ok2"> ${t('r.ok2')} (<a href="#l-consent" target="_blank">${t('c6l')}</a>)</label><br><button class="btn">${t('r.btn')}</button></form><div id="rr"></div>`}
+function bindRep(claim){const f=$('#rf');f.onsubmit=e=>{e.preventDefault();const g=n=>(f.elements[n]?.value||'').trim(),er=[];
+ if(g('desc').length<20)er.push(t('v.short'));
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(g('contact')))er.push(t('v.email'));
+ if(claim&&(!g('holder')||!g('basis')))er.push(t('v.holder'));
+ const ev=g('ev').split('\n').map(s=>s.trim()).filter(Boolean);if(ev.some(u=>!okUrl(u)))er.push(t('v.https'));
+ if(!f.elements.ok1.checked||!f.elements.ok2.checked)er.push(t('v.checks'));
+ if(er.length){$('#err').innerHTML='<p class="warn">'+er.map(esc).join('<br>')+'</p>';return}
+ const r={id:'DC-R-'+Date.now(),at:new Date().toISOString(),pid:g('pid'),cat:claim?CATS[0]:g('cat'),desc:g('desc'),ev,contact:g('contact'),holder:g('holder'),basis:g('basis'),orig:g('orig'),terms_v:LEGAL.ver,status:'зарегистрировано локально'};
+ try{const a=JSON.parse(localStorage.getItem('dc-reports')||'[]');a.push(r);localStorage.setItem('dc-reports',JSON.stringify(a))}catch(x){$('#err').innerHTML='<p class="warn">'+t('v.save')+'</p>';return}
+ const body=encodeURIComponent(t('r.mail',r.id,r.pid,r.cat,r.desc,ev.join(', '),r.contact));
+ $('#rr').innerHTML=`<div class="panel"><h3>${esc(t('r.done',r.id))}</h3><p>${ready()?`<a class="btn" href="mailto:${esc(LEGAL.email)}?subject=${encodeURIComponent('DEADCODE '+r.id)}&body=${body}">${t('r.send')}</a>`:`<span class="warn">${t('r.noemail')}</span>`}</p></div>`;f.reset()}}
+const okUrl=u=>{try{const x=new URL(u);return x.protocol==='https:'&&!x.username&&!x.password&&!/^[\d.]+$|^\[/.test(x.hostname)}catch(e){return false}};
+const SECR=[/AKIA[0-9A-Z]{16}/,/gh[pousr]_[A-Za-z0-9]{30,}/,/sk-[A-Za-z0-9_-]{20,}/,/-----BEGIN [A-Z ]*PRIVATE KEY-----/,/xox[baprs]-[A-Za-z0-9-]{10,}/,/eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\./,/(password|passwd|api[_-]?key|secret|token)\s*[:=]\s*\S{6,}/i];
+async function magic(f){const b=new Uint8Array(await f.slice(0,12).arrayBuffer()),h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return h.startsWith('89504e47')?'png':h.startsWith('ffd8ff')?'jpg':h.startsWith('47494638')?'gif':(h.startsWith('52494646')&&h.slice(16,24)==='57454250')?'webp':''}
+async function checkPub(form){
+ for(const n of['c1','c2','c3','c4','c5','c6'])if(!form.elements[n].checked)return t('p.checks');
+ for(const el of form.querySelectorAll('input[type=text],input:not([type]),textarea'))if(SECR.some(r=>r.test(el.value)))return t('p.secret',el.previousElementSibling?.textContent||el.name);
+ const gh=form.elements.gh.value.trim();if(gh&&!okUrl(gh))return t('p.url');
+ const fs=[...form.elements.shots.files];if(fs.length>3)return t('p.max');
+ for(const f of fs){if(f.size>2*1024*1024)return t('p.big',f.name);if(!/\.(png|jpe?g|gif|webp)$/i.test(f.name)||!/^image\/(png|jpeg|gif|webp)$/.test(f.type)||!(await magic(f)))return t('p.type',f.name)}
+ return null}
+function showErr(m){let e=$('#sf .err');if(!e){e=document.createElement('div');e.className='err';e.setAttribute('role','alert');$('#sf').prepend(e)}e.innerHTML='<p class="warn">'+esc(m)+'</p>';e.scrollIntoView({block:'center'})}
+function legalRoute(h,a){
+ if(h==='legal'){a.innerHTML=`<h2 class="sec" style="margin-top:44px">${t('legal')}</h2>${nav()}<p class="warn">${t('legal.warn')}</p>`;return true}
+ if(h.startsWith('l-')&&DOCS[h.slice(2)]){a.innerHTML=doc(h.slice(2));const w=$('#wipe');if(w)w.onclick=()=>{if(!confirm(t('wipe.q')))return;try{Object.keys(localStorage).filter(k=>k==='dc-user'||k==='dc-reports'||k.startsWith('dc-c-')).forEach(k=>localStorage.removeItem(k))}catch(e){}toast(t('wipe.ok'));P=P.filter(p=>p.demo)};return true}
+ if(h==='report'||h==='claim'){a.innerHTML=repForm(h==='claim');bindRep(h==='claim');return true}
+ return false}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-rep]');if(b){e.stopPropagation();e.preventDefault();RP=b.dataset.rep;location.hash==='#report'?route():location.hash='report'}},true);
+function chrome(){$('#ft').innerHTML=`<p>${DK.map(k=>`<a href="#l-${k}">${dn(k)}</a>`).join(' · ')} · <a href="#report">${t('f.rep')}</a> · <a href="#claim">${t('f.claim')}</a></p>DEADCODE · ${t('tag')} · ${t('f.line')}`;
+ document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-ia]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.ia)));
+ document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===L));
+ document.documentElement.lang=L;document.title='DEADCODE — '+t('tag');document.documentElement.style.setProperty('--rv',JSON.stringify('✦ '+t('revived')+' ✦'));
+ let d=$('#pre');if(!ready()){if(!d){d=document.createElement('div');d.id='pre';d.className='warn top';document.body.prepend(d)}d.innerHTML=t('banner')+' <a href="#l-contacts">'+t('banner.l')+'</a>'}}
+function setLang(l){if(l!==L&&(l==='ru'||l==='en')){const y=scrollY,v={};document.querySelectorAll('#app input,#app select,#app textarea').forEach(e=>{const k=e.id||e.name;if(k&&e.type!=='file')v[k]=e.type==='checkbox'?e.checked:e.value});
+ L=l;try{localStorage.setItem(LS,l)}catch(e){}chrome();route();
+ document.querySelectorAll('#app input,#app select,#app textarea').forEach(e=>{const k=e.id||e.name;if(k in v&&e.type!=='file'){if(e.type==='checkbox')e.checked=v[k];else e.value=v[k]}});
+ if($('#list'))applyF();scrollTo(0,y)}}
+document.addEventListener('click',e=>{const b=e.target.closest('.lang button');if(b)setLang(b.dataset.l)});
+chrome();
+route();
+</script><script>
+/* PHASE 1 environment runtime: stars, parallax, fireflies. Does not touch app logic. */
+(()=>{try{
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches,cv=document.getElementById('stars'),x=cv.getContext('2d');let S=[],W,H;
+let lw=0,lh=0;function size(){if(S.length&&lw===innerWidth&&Math.abs(lh-innerHeight)<160)return;lw=innerWidth;lh=innerHeight;const d=Math.min(devicePixelRatio||1,COARSE?1.5:2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);
+ let n=Math.min(LOW?60:150,W*H/9000|0);S=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H*.62,r:Math.random()*1.2+.3,p:Math.random()*6.28,s:.5+Math.random()*1.5}));draw(0)}
+function draw(t){x.clearRect(0,0,W,H);for(const q of S){x.globalAlpha=rm?.7:.45+.45*Math.sin(t/1000*q.s+q.p);x.fillStyle=q.r>1.1?'#cfe0ff':'#fff';x.beginPath();x.arc(q.x,q.y,q.r,0,6.283);x.fill()}}
+let run=!rm,lt=0;const gap=LOW?66:COARSE?33:0;(function L(t){if(run&&!document.hidden&&t-lt>=gap){lt=t;draw(t)}run&&requestAnimationFrame(L)})(0);
+addEventListener('resize',size);size();
+const hf=document.querySelector('.hl.far'),hm=document.querySelector('.hl.mid');let tk=0;addEventListener('scroll',()=>{if(tk||rm)return;tk=requestAnimationFrame(()=>{tk=0;const y=scrollY;hf.style.translate='0 '+(-y*.05)+'px';hm.style.translate='0 '+(-y*.12)+'px'})},{passive:true});
+const f=document.querySelector('.flies');for(let i=0;i<(LOW?3:innerWidth<640?6:11);i++){const e=document.createElement('i');e.style.cssText='left:'+(Math.random()*96)+'%;top:'+(-90+Math.random()*260)+'px;animation-delay:'+(-Math.random()*9)+'s,'+(-Math.random()*4)+'s;animation-duration:'+(7+Math.random()*6)+'s,'+(2.5+Math.random()*2)+'s';f.appendChild(e)}
+}catch(e){console.error('environment',e)}})();
+</script>
+<script>
+/* PHASE 6 mobile runtime: header auto-hide, keyboard handling, hidden-tab pause. App logic untouched. */
+(()=>{try{
+const h=document.querySelector('header'),mq=matchMedia('(max-width:640px)'),vv=window.visualViewport,B=document.body;let ly=scrollY,tk=0;
+addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;const y=scrollY,d=y-ly;
+ if(mq.matches&&!B.classList.contains('kb')){if(y<80||d<-6)h.classList.remove('hide');else if(d>10&&!h.contains(document.activeElement))h.classList.add('hide')}else h.classList.remove('hide');ly=y})},{passive:true});
+h.addEventListener('focusin',()=>h.classList.remove('hide'));
+const fld=e=>e&&e.matches&&e.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select');
+const kb=()=>{const k=!!(vv&&vv.height<innerHeight*.78&&fld(document.activeElement));B.classList.toggle('kb',k);if(k)h.classList.remove('hide')};
+vv&&vv.addEventListener('resize',kb);
+addEventListener('focusin',e=>{if(!COARSE||!fld(e.target))return;setTimeout(()=>{kb();try{e.target.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'})}catch(_){}},350)});
+addEventListener('focusout',()=>setTimeout(kb,120));
+document.addEventListener('visibilitychange',()=>B.classList.toggle('paused',document.hidden));
+}catch(e){console.error('mobile',e)}})();
+</script>
+</body></html>
